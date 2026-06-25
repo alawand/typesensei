@@ -1,18 +1,37 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Snippet } from '../content/snippets';
+import { saveRun, type SaveResult } from '../storage/db';
 import { useTypingSession } from './useTypingSession';
 import { TypingPanel } from './TypingPanel';
 import { LiveStats } from './LiveStats';
+import { Results } from './Results';
 
-export function TypingView({ snippet }: { snippet: Snippet }) {
+export function TypingView({ snippet, onSaved }: { snippet: Snippet; onSaved?: (r: SaveResult) => void }) {
   const session = useTypingSession(snippet.source);
   const { state, metrics } = session;
   const wrapRef = useRef<HTMLDivElement>(null);
+  const [saveResult, setSaveResult] = useState<SaveResult | null>(null);
+  const savedRef = useRef(false);
 
   const focusPanel = () => wrapRef.current?.querySelector<HTMLElement>('[tabindex]')?.focus();
 
   // Autofocus on mount (and on snippet change, since this view is keyed by id).
   useEffect(focusPanel, []);
+
+  // Persist the run exactly once when it completes.
+  useEffect(() => {
+    if (state.status !== 'done') {
+      savedRef.current = false;
+      setSaveResult(null);
+      return;
+    }
+    if (savedRef.current) return;
+    savedRef.current = true;
+    saveRun(snippet, metrics).then((r) => {
+      setSaveResult(r);
+      onSaved?.(r);
+    });
+  }, [state.status, snippet, metrics, onSaved]);
 
   return (
     <div className="flex w-full max-w-3xl flex-col gap-6">
@@ -42,23 +61,14 @@ export function TypingView({ snippet }: { snippet: Snippet }) {
       </div>
 
       {state.status === 'done' && (
-        <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-5">
-          <p className="mb-2 font-medium text-emerald-300">Done!</p>
-          <div className="flex gap-8 text-neutral-100">
-            <span>
-              <b className="tabular-nums">{metrics.wpm}</b> wpm
-            </span>
-            <span>
-              <b className="tabular-nums">{metrics.accuracy}%</b> accuracy
-            </span>
-            <span>
-              <b className="tabular-nums">{metrics.typoCost}</b> typo cost
-            </span>
-            <span>
-              <b className="tabular-nums">{metrics.consistency}</b> consistency
-            </span>
-          </div>
-        </div>
+        <Results
+          metrics={metrics}
+          save={saveResult}
+          onRestart={() => {
+            session.reset();
+            focusPanel();
+          }}
+        />
       )}
     </div>
   );

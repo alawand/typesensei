@@ -1,15 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SNIPPETS } from './content/snippets';
+import { getDailyProgress, type SaveResult } from './storage/db';
 import { TypingView } from './ui/TypingView';
 
 export default function App() {
   const [snippetId, setSnippetId] = useState(SNIPPETS[0].id);
+  const [progress, setProgress] = useState<SaveResult | null>(null);
   const snippet = SNIPPETS.find((s) => s.id === snippetId) ?? SNIPPETS[0];
+
+  useEffect(() => {
+    getDailyProgress().then(setProgress);
+  }, []);
 
   return (
     <main className="flex min-h-screen flex-col items-center gap-8 bg-neutral-950 px-4 py-12 text-neutral-100">
       <header className="flex flex-col items-center gap-3">
         <h1 className="text-2xl font-bold tracking-tight">Typesensei</h1>
+        {progress && progress.streak > 0 && (
+          <span className="text-sm text-neutral-400">
+            🔥 {progress.streak} day{progress.streak === 1 ? '' : 's'} streak
+          </span>
+        )}
         <div className="flex gap-2">
           {SNIPPETS.map((s) => (
             <button
@@ -27,7 +38,7 @@ export default function App() {
         </div>
       </header>
 
-      <TypingView key={snippet.id} snippet={snippet} />
+      <TypingView key={snippet.id} snippet={snippet} onSaved={setProgress} />
     </main>
   );
 }
