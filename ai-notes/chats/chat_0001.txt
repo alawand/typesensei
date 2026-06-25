@@ -1,0 +1,435 @@
+╭─── Claude Code v2.1.191 ─────────────────────────────────────────────────────╮
+│                                                    │ Tips for getting        │
+│                 Welcome back abed!                 │ started                 │
+│                                                    │ Run /init to create a … │
+│                       ▐▛███▜▌                      │ ─────────────────────── │
+│                      ▝▜█████▛▘                     │ What's new              │
+│                        ▘▘ ▝▝                       │ Added `/rewind` suppor… │
+│    Opus 4.8 · Claude Max · alawand@gmail.com's     │ Fixed scroll position … │
+│    Organization                                    │ Fixed background agent… │
+│            ~/personal/repos/typesensei             │ /release-notes for more │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+
+❯ this is an empty repo - i need you to plan things first: this is what i wanna 
+  do.                                                                           
+  i'm a cto - been coding for 30 years - but guess what? never had formal       
+  typing !                                                                      
+  so when i type code, it's not fast - and often more than not, i make          
+  mistakes, which slows me down - that being said, i looked at some typing      
+  tutor websites.                                                               
+  found this: https://typing.io/ https://typing.io/pricing                      
+  and this: https://monkeytype.com/                                             
+                                                                                
+  i need you to kinda clone (or at least be inspired by typing.io <-- look      
+  around, see what they have)                                                   
+                                                                                
+  maybe we can have the typing a bit more fun? somehow when i type and get      
+  things right some sort of a game reacts to it? spave shooters? i dunno...need 
+  your imagination here as well. for now, do the research, plan, don't code     
+  yet. compile your findings in ./ai-notes - amaze me!                          
+
+⏺ I'll research this properly before planning. Let me load the web tools and dig
+  into both sites in parallel.
+
+⏺ Fetch(https://typing.io/)
+  ⎿  Received 8.1KB (200 OK)
+
+⏺ Fetch(https://typing.io/pricing)
+  ⎿  Received 19KB (200 OK)
+
+⏺ Fetch(https://monkeytype.com/about)
+  ⎿  Received 31.5KB (200 OK)
+
+⏺ Web Search("gamified typing practice games space shooter type to shoot ztype
+            keybr features")
+  ⎿  Did 1 search in 9s
+
+⏺ Good foundation. Let me dig deeper into the mechanics and the technical side
+  of building this.
+
+⏺ Web Search("typing.io how it works realistic key processing engine typo cost
+            analysis lessons sections walkthrough review")
+  ⎿  Did 1 search in 8s
+
+⏺ Web Search("how to build a typing test web app WPM accuracy calculation
+            algorithm caret rendering react")
+  ⎿  Did 1 search in 9s
+
+⏺ Web Search("why monkeytype is fun addictive design smooth caret sound effects
+            flow state typing")
+  ⎿  Did 1 search in 9s
+
+⏺ Fetch(https://zty.pe/)
+  ⎿  Received 7KB (200 OK)
+
+⏺ I have enough to build a strong plan. Let me compile the findings into
+  ./ai-notes.
+
+⏺ Write(ai-notes/README.md)
+  ⎿  Wrote 41 lines to ai-notes/README.md
+      1 # Typesensei — Project Notes
+      2 
+      3 > A typing dojo for programmers. Type *real code*, fix the muscle
+      4 > formally trained, and have a game react to every clean keystrok
+        e.
+      5 
+      6 These notes are the research + plan phase. **No code yet.** Read 
+        in order, or jump
+      8 
+      9 ## The one-paragraph pitch
+     … +55 lines (ctrl+o to expand)
+
+⏺ Write(ai-notes/01-competitive-research.md)
+  ⎿  Wrote 129 lines to ai-notes/01-competitive-research.md
+      1 # 01 — Competitive Research
+      2 
+      3 Research done June 2026. Sources linked at the bottom.
+      4 
+      5 ## typing.io — the closest thing to what you want
+      7 **What it is:** A typing tutor *built specifically for programmer
+        s*. Instead of
+      8 drilling words or quotes, you type through **real open-source cod
+        e**, character for
+      9 character, including all the awkward symbols and indentation.
+     … +178 lines (ctrl+o to expand)
+
+⏺ Write(ai-notes/02-product-vision.md)
+  ⎿  Wrote 69 lines to ai-notes/02-product-vision.md
+       1 # 02 — Product Vision
+       3 ## The user (you)
+       4 
+         nd **error-prone**.
+       6 - Bottleneck isn't English prose — it's **code**: symbols, brack
+       7   mixed-case identifiers, indentation, and especially **recoveri
+         ng from a mistake
+       9 - Motivation killer: generic tutors are boring and don't target 
+         the real problem.
+         nutes a day.
+     … +89 lines (ctrl+o to expand)
+
+⏺ Write(ai-notes/03-gamification-concepts.md)
+  ⎿  Wrote 125 lines to ai-notes/03-gamification-concepts.md
+       1 # 03 — Gamification Concepts
+       2 
+       4 
+       5 ## The one rule that makes this work
+       6 
+         he game.**
+       8 
+       9 You always type the *real code, in order, every character*. The 
+      10 layer painted on top** — driven by signals derived from your key
+         strokes (correct
+     … +171 lines (ctrl+o to expand)
+
+⏺ Write(ai-notes/04-technical-architecture.md)
+  ⎿  Wrote 123 lines to ai-notes/04-technical-architecture.md
+       1 # 04 — Technical Architecture
+       2 
+       4 
+       5 | Layer | Choice | Why |
+       6 |-------|--------|-----|
+       8 | UI | **React + TypeScript** | You know the ecosystem; types ma
+         tter for the engine |
+       9 | Styling | **Tailwind CSS** | Fast theming, easy to expose CSS-
+      10 | State | **Zustand** (or plain reducer) | Lightweight; the typi
+         ng engine is the real state machine |
+     … +170 lines (ctrl+o to expand)
+
+⏺ Write(ai-notes/05-mvp-roadmap.md)
+  ⎿  Wrote 71 lines to ai-notes/05-mvp-roadmap.md
+      1 # 05 — MVP Roadmap
+      2 
+      3 Philosophy: **the typing engine is the hard part and the moat — b
+      4 first, prove the loop is good plain, then make it fun, then make 
+        it social.** Each
+      5 phase is independently shippable and useful.
+      6 
+      7 Rough estimates assume one focused dev. Treat as relative sizing,
+      8 
+      9 ---
+     … +88 lines (ctrl+o to expand)
+⏺ Write(ai-notes/06-open-questions.md)
+  ⎿  Wrote 63 lines to ai-notes/06-open-questions.md
+       1 # 06 — Open Questions (need your call before coding)
+       3 These are the decisions that actually change the build. My recom
+         mendation is marked ✅.
+       4 
+       6 - **✅ Strict-block (typing.io):** wrong char turns red, cursor 
+         *won't* advance until
+         est to editing code,
+       8   best for *your* stated weakness.
+       9 - Free-advance (Monkeytype): record the error, keep going, count
+      10   but hides the recovery tax.
+     … +76 lines (ctrl+o to expand)
+
+⏺ Done. I researched typing.io, Monkeytype, ZType, and keybr, then compiled a
+  full plan into ./ai-notes/. Here's the gist:
+
+  What I wrote (6 files in ai-notes/)
+
+  - README.md — pitch + index + TL;DR
+  - 01-competitive-research.md — deep dive on all four sites,
+  feature-by-feature, with a table of what to steal from each
+  - 02-product-vision.md — who it's for, the core insight, scope
+  - 03-gamification-concepts.md — the fun part, 5 game modes incl. the space
+  shooter
+  - 04-technical-architecture.md — stack, engine design, the metrics math
+  - 05-mvp-roadmap.md — phased build plan
+  - 06-open-questions.md — decisions that need your call
+
+  The key findings
+
+  typing.io is exactly your problem space — you type real source code (symbols,
+  brackets, backspace all count, nothing skipped). Their killer feature is Typo 
+  Cost Analysis: they count not just the typo but every keystroke you waste
+  recovering from it. For someone error-prone, that's the single most useful
+  metric in existence. They charge $9.99/mo and gate analytics — we can give it
+  away.
+
+  Monkeytype is the bar for feel — instant start, smooth caret, keypress sounds,
+  instant red errors, gorgeous themes. We steal the polish.
+
+  ZType (the space shooter) has a trap I designed around. It makes you type
+  isolated words fast → trains hunt-and-peck, the wrong skill. So the central
+  design rule for Typesensei is:
+
+  ▎ The game reacts to your typing. Your typing never bends to the game.
+
+  You always type real code, in order, every char. The engine emits an event
+  stream (correct keystroke, error, combo, boss line…) and each game is just a
+  renderer on top. My recommended first mode, "Aegis": each correct character
+  auto-fires your ship, your combo powers up the weapon, a typo = you take a hit
+  + screen shake + combo shatters, and the symbol-dense "boss line" is
+  literally a boss fight. You can only win by typing real code cleanly and
+  continuously.
+
+  Build recommendation
+
+  1. Build the honest typing engine first (the moat — real code, strict
+  error-block, typo-cost tracking). ~1–2 wks. This alone beats typing.io for
+  you.
+  2. Layer Aegis on the event stream. ~1 wk.
+  3. Local-first (IndexedDB), no backend until the loop is addictive.
+
+  Stack: Vite + React + TS + Tailwind + 2D Canvas + Dexie.
+
+  ---
+  Four decisions in 06-open-questions.md gate coding. Want me to walk you
+  through them now and lock them in, or do you want to read the notes first and
+  come back?
+
+✻ Baked for 4m 49s
+
+❯ (1) Strict-block, (2) Aegis, (3) languages: pythong, java, C                  
+  help me with Tech stack:                                                      
+  explain my options (i'm not a webdev)                                         
+
+⏺ Good — decisions locked: strict-block, Aegis first, Python / Java / C. Let me
+  record those and then explain the stack in terms that'll make sense to a
+  systems person.
+
+⏺ Update(ai-notes/06-open-questions.md)
+  ⎿  Added 12 lines
+       1  # 06 — Open Questions (need your call before coding)
+       2  
+       3 +## ✅ DECISIONS LOCKED (2026-06-24)                            
+       4 +- **Error model:** strict-block (cursor holds on errors until f
+         +ixed). [Q1]                                                    
+       5 +- **First game mode:** Aegis (reactive space shooter). [Q3]    
+       6 +- **Launch languages:** Python, Java, C. [Q4]                  
+       7 +- **Auto-indent (Q2), content sourcing (Q5), monetization (Q6),
+         + product-vs-tool (Q7):**                                       
+       8 +  using recommended defaults for now (auto-indent off / type wh
+         +itespace; ~20 curated                                          
+       9 +  permissive snippets per lang; no monetization; build as perso
+         +nal tool, keep product                                         
+      10 +  door open).                                                  
+      11 +- **Stack (Q8):** pending — see explanation below; awaiting fra
+         +mework sign-off.                                               
+      12 +                                                               
+      13 +---                                                            
+      14 +                                                               
+      15  These are the decisions that actually change the build. My reco
+          mmendation is marked ✅.
+      16  
+      17  ### 1. Error model — strict-block vs. free-advance
+
+⏺ Here's the stack explained from a systems-engineer's point of view, not a
+  web-dev's. A browser app is assembled from ~7 layers. For each I'll tell you
+  what it is (with an analogy you'll know), the options, and my pick.
+
+  ---
+  1. Language — TypeScript vs JavaScript
+
+  JavaScript is the only language a browser runs natively. TypeScript is
+  JavaScript plus a real static type system; it compiles down to JS. Same
+  relationship as Kotlin→JVM bytecode.
+
+  For you specifically — you're building a stateful typing engine with a strict
+  error state machine, and you value correctness — types pay for themselves
+  immediately.
+  → TypeScript. Not really debatable.
+
+  2. UI framework — React / Svelte / Solid / none
+
+  The browser exposes a low-level tree-of-UI-elements API (the DOM) — think raw
+  syscalls for drawing widgets. A framework lets you instead declare "screen =
+  function(state)" and it handles diffing and updating the actual pixels. It's
+  the front-end analog of Spring/Django: structure + plumbing so you don't
+  hand-roll it.
+
+  - React — industry default. Largest ecosystem, the most documentation and
+  example code, and — relevant to us — by far the most training data, so AI
+  assistance (me) is most reliable here. Slightly verbose.
+  - Svelte — compiles itself away, less boilerplate, genuinely pleasant. Smaller
+  community.
+  - Solid — React-like API, faster runtime. Small community.
+  - No framework — doable for something this small, but you'd reinvent the
+  state→screen plumbing by hand.
+
+  → React — purely because it's the most documented and AI-assistable, which
+  de-risks you (a non-web-dev) + me building it. Note: the typing engine itself
+  is plain TypeScript with zero framework dependency, so this choice only
+  governs the UI shell, not the core logic.
+
+  3. Build tool / dev server — Vite
+
+  Browsers want one optimized bundle, not your source tree. Vite is the
+  toolchain that does it: a dev server with instant hot-reload while coding + a
+  production bundler/minifier. It's make + compiler + live-reload, with
+  essentially zero config.
+  → Vite. No real competitor worth debating in 2026.
+
+  4. Styling — Tailwind vs plain CSS
+
+  CSS is the styling language (colors, layout, animation). Options: write plain
+  CSS files, or use Tailwind (utility classes you compose inline — fast to
+  iterate, and clean theming via CSS variables, which we want for the theme
+  system).
+  → Tailwind, but this is the lowest-stakes choice — plain CSS is totally fine
+  too.
+
+  5. Drawing the Aegis game — the one genuinely technical choice
+
+  - DOM elements — great for text and UI, but terrible for hundreds of moving
+  particles (each is a heavy object).
+  - 2D Canvas — an immediate-mode pixel surface, basically a framebuffer you
+  draw to each frame. Built into every browser. Perfect for a 2D space shooter
+  with explosions/particles.
+  - WebGL / PixiJS — GPU-accelerated, handles thousands of sprites. More power,
+  more complexity.
+
+  → Hybrid: the typing panel stays DOM (crisp, selectable, accessible text +
+  smooth caret); the Aegis battle is a 2D Canvas layer behind/beside it. Only
+  upgrade to PixiJS if particle counts ever choke. This is exactly how you'd
+  separate "the document" from "the game viewport."
+
+  6. Local storage — IndexedDB (Dexie) vs localStorage
+
+  No server in Phase 1, so persistence lives in the browser:
+  - localStorage — tiny synchronous key→string store (~5MB). Fine for settings.
+  - IndexedDB — a real embedded, indexed, async database in the browser (think
+  SQLite-ish). Right for run history and per-key stats. Dexie is a thin, sane
+  wrapper over its clunky native API.
+
+  → Dexie/IndexedDB for stats, localStorage for simple settings.
+
+  7. Hosting — static SPA
+
+  Phase 1 ships no backend: it's just HTML/JS/CSS files; all logic runs
+  client-side in the browser. You host the files free on Vercel / Netlify /
+  Cloudflare Pages — git push and it's live. A backend only appears in Phase 4
+  (accounts/leaderboards).
+
+  ---
+  The full recommendation, one line
+
+  TypeScript + React + Vite + Tailwind + 2D Canvas (game) + Dexie/IndexedDB 
+  (stats) → static SPA on Cloudflare/Vercel.
+
+  Boring, fast, maximally documented — which is the right call when you're not a
+  web dev and want AI help to stay reliable.
+
+  The only layer with a real judgment call is #2 (the framework). Everything
+  else has a dominant default. So:
+
+⏺ User answered Claude's questions:
+  ⎿  · For the UI framework (layer #2), which way do you want to go? Everything 
+     else in the stack is settled. → React (Recommended)
+
+⏺ Locked. Let me record the final stack decision in the notes.
+
+⏺ Update(ai-notes/06-open-questions.md)
+  ⎿  Added 3 lines, removed 1 line
+       8    using recommended defaults for now (auto-indent off / type wh
+          itespace; ~20 curated
+       9    permissive snippets per lang; no monetization; build as perso
+          nal tool, keep product
+      10    door open).
+      11 -- **Stack (Q8):** pending — see explanation below; awaiting fra
+         -mework sign-off.                                               
+      11 +- **Stack (Q8):** ✅ TypeScript + **React** + Vite + Tailwind +
+         + 2D Canvas (Aegis) +                                           
+      12 +  Dexie/IndexedDB (stats), shipped as a static SPA. Typing engi
+         +ne itself is plain,                                            
+      13 +  framework-agnostic TypeScript.                               
+      14  
+      15  ---
+      16  
+
+⏺ Update(ai-notes/README.md)
+  ⎿  Added 8 lines
+      39  
+      40  Stack rec: **Vite + React + TypeScript + Tailwind**, canvas/Web
+          GL for the game
+      41  layer, IndexedDB (Dexie) for stats. Details in [04](./04-techni
+          cal-architecture.md).
+      42 +                                                               
+      43 +## ✅ Locked decisions (2026-06-24)                            
+      44 +- **Error model:** strict-block (cursor holds on a typo until y
+         +ou fix it)                                                     
+      45 +- **First game mode:** Aegis (reactive space shooter)          
+      46 +- **Launch languages:** Python, Java, C                        
+      47 +- **Stack:** TypeScript + React + Vite + Tailwind + 2D Canvas +
+         + Dexie/IndexedDB, static SPA                                   
+      48 +                                                               
+      49 +See [06-open-questions.md](./06-open-questions.md) for the full
+         + decision log.                                                 
+
+⏺ The whole plan is now locked and recorded. Summary of where we landed:
+
+  ┌───────────┬─────────────────────────────────────────────────────────────┐
+  │ Decision  │                           Choice                            │
+  ├───────────┼─────────────────────────────────────────────────────────────┤
+  │ Error     │ Strict-block — a typo turns red and the cursor holds until  │
+  │ model     │ you backspace and fix it (so the recovery cost is real,     │
+  │           │ like editing code)                                          │
+  ├───────────┼─────────────────────────────────────────────────────────────┤
+  │ First     │ Aegis — reactive space shooter; correct chars fire, combos  │
+  │ game      │ power up, typos = hit + shake, boss line = boss fight       │
+  ├───────────┼─────────────────────────────────────────────────────────────┤
+  │ Languages │ Python, Java, C                                             │
+  ├───────────┼─────────────────────────────────────────────────────────────┤
+  │           │ TypeScript + React + Vite + Tailwind + 2D Canvas +          │
+  │ Stack     │ Dexie/IndexedDB, shipped as a static SPA (no backend in     │
+  │           │ Phase 1)                                                    │
+  └───────────┴─────────────────────────────────────────────────────────────┘
+
+  Everything's captured in ai-notes/ — README has the locked-decisions block,
+  and 06-open-questions.md has the full decision log.
+
+  Mental model for the stack, one more time, compressed: TypeScript is your
+  typed language, React is your front-end "framework" (the Spring/Django
+  equivalent for drawing UI), Vite is the build+dev-reload toolchain, Tailwind
+  is styling, 2D Canvas is the framebuffer the spaceship game draws into, and
+  Dexie/IndexedDB is the embedded local database for your stats. No server until
+  Phase 4.
+
+  You said don't code yet, so I'll stop here. When you're ready, the natural
+  first step is Phase 1 — the honest typing engine (real Python/Java/C snippets,
+  strict-block, smooth caret, live WPM/accuracy + typo-cost on the results
+  screen, stats in IndexedDB). That's a daily-usable tool on its own, and it's
+  the foundation Aegis plugs into. Just say the word and I'll scaffold it.
+
+✻ Worked for 1m 58s
