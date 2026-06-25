@@ -1,0 +1,1041 @@
+╭─── Claude Code v2.1.191 ─────────────────────────────────────────────────────╮
+│                                                    │ Tips for getting        │
+│                 Welcome back abed!                 │ started                 │
+│                                                    │ ✔ Run /init to create … │
+│                       ▐▛███▜▌                      │ ─────────────────────── │
+│                      ▝▜█████▛▘                     │ What's new              │
+│                        ▘▘ ▝▝                       │ Added `/rewind` suppor… │
+│    Opus 4.8 · Claude Max · alawand@gmail.com's     │ Fixed scroll position … │
+│    Organization                                    │ Fixed background agent… │
+│            ~/personal/repos/typesensei             │ /release-notes for more │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+
+❯ this is an empty repo - i need you to plan things first: this is what i wanna 
+  do.                                                                           
+  i'm a cto - been coding for 30 years - but guess what? never had formal       
+  typing !                                                                      
+  so when i type code, it's not fast - and often more than not, i make          
+  mistakes, which slows me down - that being said, i looked at some typing      
+  tutor websites.                                                               
+  found this: https://typing.io/ https://typing.io/pricing                      
+  and this: https://monkeytype.com/                                             
+                                                                                
+  i need you to kinda clone (or at least be inspired by typing.io <-- look      
+  around, see what they have)                                                   
+                                                                                
+  maybe we can have the typing a bit more fun? somehow when i type and get      
+  things right some sort of a game reacts to it? spave shooters? i dunno...need 
+  your imagination here as well. for now, do the research, plan, don't code     
+  yet. compile your findings in ./ai-notes - amaze me!                          
+
+⏺ I'll research this properly before planning. Let me load the web tools and dig
+  into both sites in parallel.
+
+⏺ Fetch(https://typing.io/)
+  ⎿  Received 8.1KB (200 OK)
+
+⏺ Fetch(https://typing.io/pricing)
+  ⎿  Received 19KB (200 OK)
+
+⏺ Fetch(https://monkeytype.com/about)
+  ⎿  Received 31.5KB (200 OK)
+
+⏺ Web Search("gamified typing practice games space shooter type to shoot ztype
+            keybr features")
+  ⎿  Did 1 search in 9s
+
+⏺ Good foundation. Let me dig deeper into the mechanics and the technical side
+  of building this.
+
+⏺ Web Search("typing.io how it works realistic key processing engine typo cost
+            analysis lessons sections walkthrough review")
+  ⎿  Did 1 search in 8s
+
+⏺ Web Search("how to build a typing test web app WPM accuracy calculation
+            algorithm caret rendering react")
+  ⎿  Did 1 search in 9s
+
+⏺ Web Search("why monkeytype is fun addictive design smooth caret sound effects
+            flow state typing")
+  ⎿  Did 1 search in 9s
+
+⏺ Fetch(https://zty.pe/)
+  ⎿  Received 7KB (200 OK)
+
+⏺ I have enough to build a strong plan. Let me compile the findings into
+  ./ai-notes.
+
+⏺ Write(ai-notes/README.md)
+  ⎿  Wrote 41 lines to ai-notes/README.md
+      1 # Typesensei — Project Notes
+      2 
+      3 > A typing dojo for programmers. Type *real code*, fix the muscle
+      4 > formally trained, and have a game react to every clean keystrok
+        e.
+      5 
+      6 These notes are the research + plan phase. **No code yet.** Read 
+        in order, or jump
+      8 
+      9 ## The one-paragraph pitch
+     … +55 lines (ctrl+o to expand)
+
+⏺ Write(ai-notes/01-competitive-research.md)
+  ⎿  Wrote 129 lines to ai-notes/01-competitive-research.md
+      1 # 01 — Competitive Research
+      2 
+      3 Research done June 2026. Sources linked at the bottom.
+      4 
+      5 ## typing.io — the closest thing to what you want
+      7 **What it is:** A typing tutor *built specifically for programmer
+        s*. Instead of
+      8 drilling words or quotes, you type through **real open-source cod
+        e**, character for
+      9 character, including all the awkward symbols and indentation.
+     … +178 lines (ctrl+o to expand)
+
+⏺ Write(ai-notes/02-product-vision.md)
+  ⎿  Wrote 69 lines to ai-notes/02-product-vision.md
+       1 # 02 — Product Vision
+       3 ## The user (you)
+       4 
+         nd **error-prone**.
+       6 - Bottleneck isn't English prose — it's **code**: symbols, brack
+       7   mixed-case identifiers, indentation, and especially **recoveri
+         ng from a mistake
+       9 - Motivation killer: generic tutors are boring and don't target 
+         the real problem.
+         nutes a day.
+     … +89 lines (ctrl+o to expand)
+
+⏺ Write(ai-notes/03-gamification-concepts.md)
+  ⎿  Wrote 125 lines to ai-notes/03-gamification-concepts.md
+       1 # 03 — Gamification Concepts
+       2 
+       4 
+       5 ## The one rule that makes this work
+       6 
+         he game.**
+       8 
+       9 You always type the *real code, in order, every character*. The 
+      10 layer painted on top** — driven by signals derived from your key
+         strokes (correct
+     … +171 lines (ctrl+o to expand)
+
+⏺ Write(ai-notes/04-technical-architecture.md)
+  ⎿  Wrote 123 lines to ai-notes/04-technical-architecture.md
+       1 # 04 — Technical Architecture
+       2 
+       4 
+       5 | Layer | Choice | Why |
+       6 |-------|--------|-----|
+       8 | UI | **React + TypeScript** | You know the ecosystem; types ma
+         tter for the engine |
+       9 | Styling | **Tailwind CSS** | Fast theming, easy to expose CSS-
+      10 | State | **Zustand** (or plain reducer) | Lightweight; the typi
+         ng engine is the real state machine |
+     … +170 lines (ctrl+o to expand)
+
+⏺ Write(ai-notes/05-mvp-roadmap.md)
+  ⎿  Wrote 71 lines to ai-notes/05-mvp-roadmap.md
+      1 # 05 — MVP Roadmap
+      2 
+      3 Philosophy: **the typing engine is the hard part and the moat — b
+      4 first, prove the loop is good plain, then make it fun, then make 
+        it social.** Each
+      5 phase is independently shippable and useful.
+      6 
+      7 Rough estimates assume one focused dev. Treat as relative sizing,
+      8 
+      9 ---
+     … +88 lines (ctrl+o to expand)
+⏺ Write(ai-notes/06-open-questions.md)
+  ⎿  Wrote 63 lines to ai-notes/06-open-questions.md
+       1 # 06 — Open Questions (need your call before coding)
+       3 These are the decisions that actually change the build. My recom
+         mendation is marked ✅.
+       4 
+       6 - **✅ Strict-block (typing.io):** wrong char turns red, cursor 
+         *won't* advance until
+         est to editing code,
+       8   best for *your* stated weakness.
+       9 - Free-advance (Monkeytype): record the error, keep going, count
+      10   but hides the recovery tax.
+     … +76 lines (ctrl+o to expand)
+
+⏺ Done. I researched typing.io, Monkeytype, ZType, and keybr, then compiled a
+  full plan into ./ai-notes/. Here's the gist:
+
+  What I wrote (6 files in ai-notes/)
+
+  - README.md — pitch + index + TL;DR
+  - 01-competitive-research.md — deep dive on all four sites,
+  feature-by-feature, with a table of what to steal from each
+  - 02-product-vision.md — who it's for, the core insight, scope
+  - 03-gamification-concepts.md — the fun part, 5 game modes incl. the space
+  shooter
+  - 04-technical-architecture.md — stack, engine design, the metrics math
+  - 05-mvp-roadmap.md — phased build plan
+  - 06-open-questions.md — decisions that need your call
+
+  The key findings
+
+  typing.io is exactly your problem space — you type real source code (symbols,
+  brackets, backspace all count, nothing skipped). Their killer feature is Typo 
+  Cost Analysis: they count not just the typo but every keystroke you waste
+  recovering from it. For someone error-prone, that's the single most useful
+  metric in existence. They charge $9.99/mo and gate analytics — we can give it
+  away.
+
+  Monkeytype is the bar for feel — instant start, smooth caret, keypress sounds,
+  instant red errors, gorgeous themes. We steal the polish.
+
+  ZType (the space shooter) has a trap I designed around. It makes you type
+  isolated words fast → trains hunt-and-peck, the wrong skill. So the central
+  design rule for Typesensei is:
+
+  ▎ The game reacts to your typing. Your typing never bends to the game.
+
+  You always type real code, in order, every char. The engine emits an event
+  stream (correct keystroke, error, combo, boss line…) and each game is just a
+  renderer on top. My recommended first mode, "Aegis": each correct character
+  auto-fires your ship, your combo powers up the weapon, a typo = you take a hit
+  + screen shake + combo shatters, and the symbol-dense "boss line" is
+  literally a boss fight. You can only win by typing real code cleanly and
+  continuously.
+
+  Build recommendation
+
+  1. Build the honest typing engine first (the moat — real code, strict
+  error-block, typo-cost tracking). ~1–2 wks. This alone beats typing.io for
+  you.
+  2. Layer Aegis on the event stream. ~1 wk.
+  3. Local-first (IndexedDB), no backend until the loop is addictive.
+
+  Stack: Vite + React + TS + Tailwind + 2D Canvas + Dexie.
+
+  ---
+  Four decisions in 06-open-questions.md gate coding. Want me to walk you
+  through them now and lock them in, or do you want to read the notes first and
+  come back?
+
+✻ Worked for 4m 49s
+
+❯ (1) Strict-block, (2) Aegis, (3) languages: pythong, java, C                  
+  help me with Tech stack:                                                      
+  explain my options (i'm not a webdev)                                         
+
+⏺ Good — decisions locked: strict-block, Aegis first, Python / Java / C. Let me
+  record those and then explain the stack in terms that'll make sense to a
+  systems person.
+
+⏺ Update(ai-notes/06-open-questions.md)
+  ⎿  Added 12 lines
+       1  # 06 — Open Questions (need your call before coding)
+       2  
+       3 +## ✅ DECISIONS LOCKED (2026-06-24)                            
+       4 +- **Error model:** strict-block (cursor holds on errors until f
+         +ixed). [Q1]                                                    
+       5 +- **First game mode:** Aegis (reactive space shooter). [Q3]    
+       6 +- **Launch languages:** Python, Java, C. [Q4]                  
+       7 +- **Auto-indent (Q2), content sourcing (Q5), monetization (Q6),
+         + product-vs-tool (Q7):**                                       
+       8 +  using recommended defaults for now (auto-indent off / type wh
+         +itespace; ~20 curated                                          
+       9 +  permissive snippets per lang; no monetization; build as perso
+         +nal tool, keep product                                         
+      10 +  door open).                                                  
+      11 +- **Stack (Q8):** pending — see explanation below; awaiting fra
+         +mework sign-off.                                               
+      12 +                                                               
+      13 +---                                                            
+      14 +                                                               
+      15  These are the decisions that actually change the build. My reco
+          mmendation is marked ✅.
+      16  
+      17  ### 1. Error model — strict-block vs. free-advance
+
+⏺ Here's the stack explained from a systems-engineer's point of view, not a
+  web-dev's. A browser app is assembled from ~7 layers. For each I'll tell you
+  what it is (with an analogy you'll know), the options, and my pick.
+
+  ---
+  1. Language — TypeScript vs JavaScript
+
+  JavaScript is the only language a browser runs natively. TypeScript is
+  JavaScript plus a real static type system; it compiles down to JS. Same
+  relationship as Kotlin→JVM bytecode.
+
+  For you specifically — you're building a stateful typing engine with a strict
+  error state machine, and you value correctness — types pay for themselves
+  immediately.
+  → TypeScript. Not really debatable.
+
+  2. UI framework — React / Svelte / Solid / none
+
+  The browser exposes a low-level tree-of-UI-elements API (the DOM) — think raw
+  syscalls for drawing widgets. A framework lets you instead declare "screen =
+  function(state)" and it handles diffing and updating the actual pixels. It's
+  the front-end analog of Spring/Django: structure + plumbing so you don't
+  hand-roll it.
+
+  - React — industry default. Largest ecosystem, the most documentation and
+  example code, and — relevant to us — by far the most training data, so AI
+  assistance (me) is most reliable here. Slightly verbose.
+  - Svelte — compiles itself away, less boilerplate, genuinely pleasant. Smaller
+  community.
+  - Solid — React-like API, faster runtime. Small community.
+  - No framework — doable for something this small, but you'd reinvent the
+  state→screen plumbing by hand.
+
+  → React — purely because it's the most documented and AI-assistable, which
+  de-risks you (a non-web-dev) + me building it. Note: the typing engine itself
+  is plain TypeScript with zero framework dependency, so this choice only
+  governs the UI shell, not the core logic.
+
+  3. Build tool / dev server — Vite
+
+  Browsers want one optimized bundle, not your source tree. Vite is the
+  toolchain that does it: a dev server with instant hot-reload while coding + a
+  production bundler/minifier. It's make + compiler + live-reload, with
+  essentially zero config.
+  → Vite. No real competitor worth debating in 2026.
+
+  4. Styling — Tailwind vs plain CSS
+
+  CSS is the styling language (colors, layout, animation). Options: write plain
+  CSS files, or use Tailwind (utility classes you compose inline — fast to
+  iterate, and clean theming via CSS variables, which we want for the theme
+  system).
+  → Tailwind, but this is the lowest-stakes choice — plain CSS is totally fine
+  too.
+
+  5. Drawing the Aegis game — the one genuinely technical choice
+
+  - DOM elements — great for text and UI, but terrible for hundreds of moving
+  particles (each is a heavy object).
+  - 2D Canvas — an immediate-mode pixel surface, basically a framebuffer you
+  draw to each frame. Built into every browser. Perfect for a 2D space shooter
+  with explosions/particles.
+  - WebGL / PixiJS — GPU-accelerated, handles thousands of sprites. More power,
+  more complexity.
+
+  → Hybrid: the typing panel stays DOM (crisp, selectable, accessible text +
+  smooth caret); the Aegis battle is a 2D Canvas layer behind/beside it. Only
+  upgrade to PixiJS if particle counts ever choke. This is exactly how you'd
+  separate "the document" from "the game viewport."
+
+  6. Local storage — IndexedDB (Dexie) vs localStorage
+
+  No server in Phase 1, so persistence lives in the browser:
+  - localStorage — tiny synchronous key→string store (~5MB). Fine for settings.
+  - IndexedDB — a real embedded, indexed, async database in the browser (think
+  SQLite-ish). Right for run history and per-key stats. Dexie is a thin, sane
+  wrapper over its clunky native API.
+
+  → Dexie/IndexedDB for stats, localStorage for simple settings.
+
+  7. Hosting — static SPA
+
+  Phase 1 ships no backend: it's just HTML/JS/CSS files; all logic runs
+  client-side in the browser. You host the files free on Vercel / Netlify /
+  Cloudflare Pages — git push and it's live. A backend only appears in Phase 4
+  (accounts/leaderboards).
+
+  ---
+  The full recommendation, one line
+
+  TypeScript + React + Vite + Tailwind + 2D Canvas (game) + Dexie/IndexedDB 
+  (stats) → static SPA on Cloudflare/Vercel.
+
+  Boring, fast, maximally documented — which is the right call when you're not a
+  web dev and want AI help to stay reliable.
+
+  The only layer with a real judgment call is #2 (the framework). Everything
+  else has a dominant default. So:
+
+⏺ User answered Claude's questions:
+  ⎿  · For the UI framework (layer #2), which way do you want to go? Everything 
+     else in the stack is settled. → React (Recommended)
+
+⏺ Locked. Let me record the final stack decision in the notes.
+
+⏺ Update(ai-notes/06-open-questions.md)
+  ⎿  Added 3 lines, removed 1 line
+       8    using recommended defaults for now (auto-indent off / type wh
+          itespace; ~20 curated
+       9    permissive snippets per lang; no monetization; build as perso
+          nal tool, keep product
+      10    door open).
+      11 -- **Stack (Q8):** pending — see explanation below; awaiting fra
+         -mework sign-off.                                               
+      11 +- **Stack (Q8):** ✅ TypeScript + **React** + Vite + Tailwind +
+         + 2D Canvas (Aegis) +                                           
+      12 +  Dexie/IndexedDB (stats), shipped as a static SPA. Typing engi
+         +ne itself is plain,                                            
+      13 +  framework-agnostic TypeScript.                               
+      14  
+      15  ---
+      16  
+
+⏺ Update(ai-notes/README.md)
+  ⎿  Added 8 lines
+      39  
+      40  Stack rec: **Vite + React + TypeScript + Tailwind**, canvas/Web
+          GL for the game
+      41  layer, IndexedDB (Dexie) for stats. Details in [04](./04-techni
+          cal-architecture.md).
+      42 +                                                               
+      43 +## ✅ Locked decisions (2026-06-24)                            
+      44 +- **Error model:** strict-block (cursor holds on a typo until y
+         +ou fix it)                                                     
+      45 +- **First game mode:** Aegis (reactive space shooter)          
+      46 +- **Launch languages:** Python, Java, C                        
+      47 +- **Stack:** TypeScript + React + Vite + Tailwind + 2D Canvas +
+         + Dexie/IndexedDB, static SPA                                   
+      48 +                                                               
+      49 +See [06-open-questions.md](./06-open-questions.md) for the full
+         + decision log.                                                 
+
+⏺ The whole plan is now locked and recorded. Summary of where we landed:
+
+  ┌───────────┬─────────────────────────────────────────────────────────────┐
+  │ Decision  │                           Choice                            │
+  ├───────────┼─────────────────────────────────────────────────────────────┤
+  │ Error     │ Strict-block — a typo turns red and the cursor holds until  │
+  │ model     │ you backspace and fix it (so the recovery cost is real,     │
+  │           │ like editing code)                                          │
+  ├───────────┼─────────────────────────────────────────────────────────────┤
+  │ First     │ Aegis — reactive space shooter; correct chars fire, combos  │
+  │ game      │ power up, typos = hit + shake, boss line = boss fight       │
+  ├───────────┼─────────────────────────────────────────────────────────────┤
+  │ Languages │ Python, Java, C                                             │
+  ├───────────┼─────────────────────────────────────────────────────────────┤
+  │           │ TypeScript + React + Vite + Tailwind + 2D Canvas +          │
+  │ Stack     │ Dexie/IndexedDB, shipped as a static SPA (no backend in     │
+  │           │ Phase 1)                                                    │
+  └───────────┴─────────────────────────────────────────────────────────────┘
+
+  Everything's captured in ai-notes/ — README has the locked-decisions block,
+  and 06-open-questions.md has the full decision log.
+
+  Mental model for the stack, one more time, compressed: TypeScript is your
+  typed language, React is your front-end "framework" (the Spring/Django
+  equivalent for drawing UI), Vite is the build+dev-reload toolchain, Tailwind
+  is styling, 2D Canvas is the framebuffer the spaceship game draws into, and
+  Dexie/IndexedDB is the embedded local database for your stats. No server until
+  Phase 4.
+
+  You said don't code yet, so I'll stop here. When you're ready, the natural
+  first step is Phase 1 — the honest typing engine (real Python/Java/C snippets,
+  strict-block, smooth caret, live WPM/accuracy + typo-cost on the results
+  screen, stats in IndexedDB). That's a daily-usable tool on its own, and it's
+  the foundation Aegis plugs into. Just say the word and I'll scaffold it.
+
+✻ Cogitated for 1m 58s
+
+❯ /export ./ai-notes/chats/chat_0001.txt                                        
+  ⎿  Conversation exported to:
+     /Users/abed/personal/repos/typesensei/ai-notes/chats/chat_0001.txt
+
+❯ let's do this in phases. i just commited all the stuff in ./ai-notes          
+  let's start phase 1 - create a branch, maybe we need to create a CLAUDE.md ?  
+  etc.. let's see some code. ask before persisting files. wanna see what you're 
+  producing.                                                                    
+
+⏺ Let me create the branch first, then I'll show you the plan and the actual
+  engine code before writing anything to disk.
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Branch phase-1-typing-engine is up, working tree clean. Per your "show me
+  before persisting," here's the proposed Phase 1 layout, the CLAUDE.md, and the
+  actual engine code — nothing written to disk yet.
+
+  Proposed build cadence for Phase 1
+
+  I'd build it in three reviewable slices so you see it working at each step:
+  1. Scaffold + the engine + its unit tests ← this message (the heart; pure
+  logic, no UI)
+  2. TypingPanel UI + React hook → you can actually type a snippet on screen
+  3. Results screen + IndexedDB stats + streak
+
+  Proposed file tree
+
+  typesensei/
+  ├─ ai-notes/                 # (exists)
+  ├─ CLAUDE.md                 # new
+  ├─ package.json, tsconfig.json, vite.config.ts, tailwind.config.ts …  #
+  scaffold
+  ├─ index.html
+  └─ src/
+     ├─ main.tsx, App.tsx, index.css           # React shell (slice 2)
+     ├─ engine/                                 # ⭐ framework-agnostic core
+  (this slice)
+     │  ├─ types.ts        # data shapes
+     │  ├─ engine.ts       # strict-block state machine (pure reducer)
+     │  ├─ metrics.ts      # WPM / accuracy / consistency / typo cost
+     │  └─ engine.test.ts  # vitest unit tests
+     ├─ content/snippets.ts                      # Python/Java/C starter
+  snippets
+     ├─ ui/  (TypingPanel, Caret, Results, useTypingSession)   # slices 2–3
+     └─ storage/db.ts                            # Dexie schema (slice 3)
+
+  CLAUDE.md (proposed)
+
+  # Typesensei
+
+  A typing dojo for programmers: type real source code, fix the muscle memory
+  you
+  never formally trained, and have a game (Aegis, a reactive space shooter)
+  respond
+  to clean keystrokes. See `ai-notes/` for the full research + plan.
+
+  ## Stack
+  TypeScript + React + Vite + Tailwind. 2D Canvas for the game layer.
+  Dexie/IndexedDB
+  for local stats. Static SPA — no backend in Phase 1.
+
+  ## Architecture — one rule
+  The typing **engine** (`src/engine/`) is pure, framework-agnostic TypeScript.
+  It is
+  the source of truth and the moat. Everything else subscribes to it:
+  - React UI renders the target text and reads engine state.
+  - Game skins (Aegis) react to engine events; they NEVER change the text being
+  typed.
+  Keep `src/engine/` free of React/DOM imports so it stays testable and
+  reusable.
+
+  ## Typing model: strict-block
+  A wrong character does not advance the cursor. It piles into an "error buffer"
+  and
+  the run is blocked until backspaced. This makes typo *recovery cost* real and
+  measurable — the core metric of this product.
+
+  ## Commands
+  - `npm run dev`    — dev server (hot reload)
+  - `npm run build`  — production build
+  - `npm test`       — vitest (engine unit tests)
+  - `npm run lint`   — eslint
+
+  ## Conventions
+  - No skipped characters, ever: symbols, spaces, tabs, newlines, backspace all
+  count.
+  - Never inflate WPM. Honest numbers only.
+  - Keep the engine UI-agnostic; put React glue in `src/ui/`.
+
+  The engine — src/engine/types.ts
+
+  export type RunStatus = 'idle' | 'running' | 'done';
+
+  /** One physical key the user produced, in order. The full log lets us 
+  recompute
+   *  every metric and replay the run. */
+  export interface Keystroke {
+    key: string;            // the character produced, or 'Backspace'
+    expected: string | null; // what the engine expected at the cursor (null for
+  backspace)
+    correct: boolean;       // true only for a forward key that matched 
+  `expected`
+    backspace: boolean;     // true if this was a Backspace
+    tMs: number;            // ms since the run started (first keystroke = 0)
+    cursorAt: number;       // cursor index when the key landed
+  }
+
+  export interface EngineState {
+    readonly target: string; // raw target text; EVERY char counts 
+  (symbols/space/tab/newline)
+    cursor: number;          // index of the next character to commit correctly
+    errorBuffer: string[];   // wrong chars typed at the cursor, not yet 
+  backspaced.
+                             // while non-empty the run is "blocked" 
+  (strict-block model)
+    keystrokes: Keystroke[]; // full ordered log
+    startedAt: number | null;
+    endedAt: number | null;
+    status: RunStatus;
+  }
+
+  src/engine/engine.ts — the strict-block state machine
+
+  import type { EngineState, KeyInput } from './types';
+
+  export function createState(target: string): EngineState {
+    return { target, cursor: 0, errorBuffer: [], keystrokes: [],
+             startedAt: null, endedAt: null, status: 'idle' };
+  }
+
+  /** Cursor is parked on an uncorrected typo. The only productive key here is
+   *  Backspace — this is what makes a typo actually cost something. */
+  export function isBlocked(s: EngineState): boolean {
+    return s.errorBuffer.length > 0;
+  }
+
+  /** Where the caret renders: after any piled-up wrong characters. */
+  export function caretIndex(s: EngineState): number {
+    return s.cursor + s.errorBuffer.length;
+  }
+
+  /** Pure transition. Returns a NEW state; never mutates the input.
+   *  `key` is a single produced character or 'Backspace'; `now` is a ms 
+  timestamp. */
+  export function applyKey(prev: EngineState, key: string, now: number):
+  EngineState {
+    if (prev.status === 'done') return prev;
+
+    const startedAt = prev.startedAt ?? now;
+    const tMs = now - startedAt;
+    const s: EngineState = {
+      ...prev, startedAt, status: 'running',
+      errorBuffer: [...prev.errorBuffer], keystrokes: [...prev.keystrokes],
+    };
+
+    if (key === 'Backspace') {
+      if (s.errorBuffer.length > 0) s.errorBuffer.pop();   // recover one wrong 
+  char
+      else if (s.cursor > 0) s.cursor -= 1;                // un-commit a 
+  correct char (allowed)
+      s.keystrokes.push({ key, expected: null, correct: false, backspace: true,
+  tMs, cursorAt: s.cursor });
+      return s;
+    }
+
+    const expected = s.target[s.cursor] ?? null;
+
+    if (s.errorBuffer.length === 0 && key === expected) {  // clean forward 
+  progress
+      s.cursor += 1;
+      s.keystrokes.push({ key, expected, correct: true, backspace: false, tMs,
+  cursorAt: s.cursor - 1 });
+      if (s.cursor >= s.target.length) { s.status = 'done'; s.endedAt = now; }
+    } else {                                                // wrong key, or 
+  already blocked: pile on
+      s.errorBuffer.push(key);
+      s.keystrokes.push({ key, expected, correct: false, backspace: false, tMs,
+  cursorAt: s.cursor });
+    }
+    return s;
+  }
+
+  src/engine/metrics.ts — honest numbers
+
+  import type { EngineState } from './types';
+
+  export interface KeyCost { char: string; attempts: number; errors: number; }
+
+  export interface RunMetrics {
+    durationMs: number;
+    wpm: number;          // correct chars / 5 / minutes
+    rawWpm: number;       // all forward chars / 5 / minutes
+    accuracy: number;     // % correct forward keys of all forward keys
+    consistency: number;  // 0–100, steadiness of keystroke rhythm (your "flow" 
+  number)
+    correctChars: number;
+    totalKeystrokes: number;
+    typos: number;        // wrong forward keys
+    typoCost: number;     // wasted keystrokes = wrong forward keys + backspaces
+   ⭐
+    perKey: KeyCost[];    // error attribution → heatmap / "which symbol hurts 
+  you"
+  }
+
+  export function computeMetrics(s: EngineState): RunMetrics {
+    const ks = s.keystrokes;
+    const forward = ks.filter(k => !k.backspace);
+    const backspaces = ks.length - forward.length;
+    const correct = forward.filter(k => k.correct);
+    const typos = forward.length - correct.length;
+
+    const end = s.endedAt ?? (ks.length ? (s.startedAt! + ks[ks.length - 1].tMs)
+  : s.startedAt!);
+    const durationMs = s.startedAt == null ? 0 : end - s.startedAt;
+    const minutes = durationMs / 60000;
+
+    // Per-key error attribution (only forward keys aimed at a real character).
+    const map = new Map<string, KeyCost>();
+    for (const k of forward) {
+      if (k.expected == null) continue;
+      const e = map.get(k.expected) ?? { char: k.expected, attempts: 0, errors:
+  0 };
+      e.attempts++; if (!k.correct) e.errors++;
+      map.set(k.expected, e);
+    }
+
+    return {
+      durationMs,
+      wpm: minutes ? Math.round((correct.length / 5) / minutes) : 0,
+      rawWpm: minutes ? Math.round((forward.length / 5) / minutes) : 0,
+      accuracy: forward.length ? +(100 * correct.length /
+  forward.length).toFixed(1) : 100,
+      consistency: computeConsistency(ks.map(k => k.tMs)),
+      correctChars: correct.length,
+      totalKeystrokes: ks.length,
+      typos,
+      typoCost: typos + backspaces,
+      perKey: [...map.values()].sort((a, b) => b.errors - a.errors),
+    };
+  }
+
+  /** Steadiness of inter-keystroke intervals → 0–100. Erratic bursts score low,
+   *  smooth cadence scores high. This is the metric that maps to "flow". */
+  function computeConsistency(times: number[]): number {
+    if (times.length < 3) return 100;
+    const gaps: number[] = [];
+    for (let i = 1; i < times.length; i++) gaps.push(times[i] - times[i - 1]);
+    const mean = gaps.reduce((a, b) => a + b, 0) / gaps.length;
+    if (mean <= 0) return 100;
+    const variance = gaps.reduce((a, g) => a + (g - mean) ** 2, 0) /
+  gaps.length;
+    const cv = Math.sqrt(variance) / mean;          // coefficient of variation
+    return Math.max(0, Math.round((1 - cv) * 100)); // lower variation → higher 
+  consistency
+  }
+
+  I'd also write engine.test.ts (vitest) covering: clean run completes, a typo
+  blocks the cursor, backspace recovers, typo cost counts wrong+backspace
+  keystrokes, and WPM math. types.ts will also export the small KeyInput/helper
+  types referenced above.
+
+  ---
+  The key design point to sanity-check: strict-block here means a wrong char
+  piles into an error buffer and blocks you — you must backspace it before
+  continuing, exactly like fixing a typo in your editor. So one typo costs you a
+  minimum of 3 keystrokes (wrong char + backspace + correct retype), and
+  typoCost counts those wasted ones. That's the whole philosophy made
+  measurable.
+
+  If this looks right, I'll: (a) scaffold the Vite+React+TS+Tailwind app, (b)
+  write CLAUDE.md, and (c) write the engine/ files + tests, then run the tests
+  so you can see them pass. Want me to proceed — or change anything in the model
+  first?
+
+✻ Cogitated for 2m 26s
+
+※ recap: Building Typesensei, a code-typing trainer; Phase 1 branch is created and I've shown you the proposed file tree, CLAUDE.md, and the strict-block engine code, awaiting your review. Next: on your OK, scaffold the Vite app, write CLAUDE.md and the engine files, and run the tests. (disable recaps in /config)
+
+❯ proceed                                                                       
+
+⏺ Proceeding. Writing the scaffold, CLAUDE.md, and the engine + tests now.
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ Write(package.json)
+  ⎿  Wrote 34 lines to package.json
+       1 {
+       2   "name": "typesensei",
+       3   "private": true,
+       4   "version": "0.0.0",
+       5   "type": "module",
+       6   "scripts": {
+       7     "dev": "vite",
+       8     "build": "tsc && vite build",
+       9     "preview": "vite preview",
+      10     "test": "vitest run",
+     … +24 lines (ctrl+o to expand)
+
+⏺ Write(tsconfig.json)
+  ⎿  Wrote 23 lines to tsconfig.json
+       1 {
+       2   "compilerOptions": {
+       3     "target": "ES2022",
+       4     "useDefineForClassFields": true,
+       5     "lib": ["ES2022", "DOM", "DOM.Iterable"],
+       6     "module": "ESNext",
+       7     "skipLibCheck": true,
+       8 
+       9     "moduleResolution": "bundler",
+      10     "allowImportingTsExtensions": true,
+     … +13 lines (ctrl+o to expand)
+⏺ Write(vite.config.ts)
+  ⎿  Wrote 10 lines to vite.config.ts
+       1 import { defineConfig } from 'vitest/config';
+       2 import react from '@vitejs/plugin-react';
+       3 import tailwindcss from '@tailwindcss/vite';
+       4 
+       5 export default defineConfig({
+       6   plugins: [react(), tailwindcss()],
+       7   test: {
+       8     environment: 'node',
+       9   },
+      10 });
+
+⏺ Write(eslint.config.js)
+  ⎿  Wrote 28 lines to eslint.config.js
+       1 import js from '@eslint/js';
+       2 import globals from 'globals';
+       3 import tseslint from 'typescript-eslint';
+       4 import reactHooks from 'eslint-plugin-react-hooks';
+       5 import reactRefresh from 'eslint-plugin-react-refresh';
+       7 export default tseslint.config(
+       8   { ignores: ['dist'] },
+       9   {
+      10     extends: [js.configs.recommended, ...tseslint.configs.recomm
+         ended],
+     … +19 lines (ctrl+o to expand)
+
+⏺ Write(index.html)
+  ⎿  Wrote 12 lines to index.html
+       1 <!doctype html>
+       2 <html lang="en">
+       3   <head>
+       4     <meta charset="UTF-8" />
+       5     <meta name="viewport" content="width=device-width, initial-s
+       6     <title>Typesensei</title>
+       7   </head>
+       8   <body>
+       9     <div id="root"></div>
+      10     <script type="module" src="/src/main.tsx"></script>
+     … +3 lines (ctrl+o to expand)
+
+⏺ Write(src/index.css)
+  ⎿  Wrote 1 lines to src/index.css
+      1 @import "tailwindcss";
+
+⏺ Write(src/main.tsx)
+  ⎿  Wrote 10 lines to src/main.tsx
+       1 import { StrictMode } from 'react';
+       2 import { createRoot } from 'react-dom/client';
+       3 import App from './App';
+       4 import './index.css';
+       5 
+       6 createRoot(document.getElementById('root')!).render(
+       7   <StrictMode>
+       8     <App />
+       9   </StrictMode>,
+      10 );
+
+⏺ Write(src/App.tsx)
+  ⎿  Wrote 9 lines to src/App.tsx
+      1 export default function App() {
+      2   return (
+      3     <main className="min-h-screen bg-neutral-950 text-neutral-100
+         flex items-center justify-center">
+      4       <p className="font-mono text-sm opacity-70">
+      5         Typesensei — engine ready. Typing UI lands in slice 2.
+      6       </p>
+      7     </main>
+      8   );
+      9 }
+
+⏺ Write(src/engine/types.ts)
+  ⎿  Wrote 35 lines to src/engine/types.ts
+       1 export type RunStatus = 'idle' | 'running' | 'done';
+       2 
+       3 /** One physical key the user produced, in order. The full log l
+       4  *  every metric and replay the run. */
+       5 export interface Keystroke {
+       6   /** The character produced, or 'Backspace' for a delete. */
+       7   key: string;
+       8   /** What the engine expected at the cursor when this key lande
+       9   expected: string | null;
+      10   /** True only for a forward key that matched `expected`. */
+     … +32 lines (ctrl+o to expand)
+
+⏺ Write(src/engine/engine.ts)
+  ⎿  Wrote 69 lines to src/engine/engine.ts
+       1 import type { EngineState } from './types';
+       2 
+       3 export function createState(target: string): EngineState {
+       4   return {
+       5     target,
+       6     cursor: 0,
+       7     errorBuffer: [],
+       8     keystrokes: [],
+       9     startedAt: null,
+      10     endedAt: null,
+     … +67 lines (ctrl+o to expand)
+
+⏺ Write(src/engine/metrics.ts)
+  ⎿  Wrote 70 lines to src/engine/metrics.ts
+       1 import type { EngineState } from './types';
+       2 
+       3 export interface KeyCost {
+       4   char: string;
+       5   attempts: number;
+       6   errors: number;
+       7 }
+       8 
+       9 export interface RunMetrics {
+      10   durationMs: number;
+     … +71 lines (ctrl+o to expand)
+
+⏺ Write(src/engine/engine.test.ts)
+  ⎿  Wrote 115 lines to src/engine/engine.test.ts
+       1 import { describe, it, expect } from 'vitest';
+       2 import { createState, applyKey, isBlocked, caretIndex } from './
+         engine';
+       4 
+       5 /** Type a list of keys with a fixed cadence, starting at t=1000
+         . */
+       6 function play(target: string, keys: string[], step = 10) {
+       7   let s = createState(target);
+       9   for (const k of keys) {
+      10     s = applyKey(s, k, t);
+     … +110 lines (ctrl+o to expand)
+
+⏺ Write(src/content/snippets.ts)
+  ⎿  Wrote 47 lines to src/content/snippets.ts
+       1 export type Language = 'python' | 'java' | 'c';
+       2 
+       3 export interface Snippet {
+       4   id: string;
+       5   language: Language;
+       7   source: string;
+       8 }
+       9 
+      10 /** Starter pack. EVERY character (including indentation) is typ
+         ed verbatim. */
+     … +38 lines (ctrl+o to expand)
+
+⏺ Write(CLAUDE.md)
+  ⎿  Wrote 33 lines to CLAUDE.md
+      1 # Typesensei
+      2 
+        cle memory you
+      4 never formally trained, and have a game (Aegis, a reactive space 
+        shooter) respond
+        .
+      6 
+      7 ## Stack
+        r. Dexie/IndexedDB
+      9 for local stats. Static SPA — no backend in Phase 1.
+     … +33 lines (ctrl+o to expand)
+
+⏺ The .gitignore only has !ai-notes — no node_modules/dist ignores. Let me fix
+  that, then install and run the tests.
+
+⏺ Write(.gitignore)
+  ⎿  Added 21 lines, removed 1 line
+       1 -!ai-notes                                                      
+       1 +# dependencies                                                 
+       2 +node_modules/                                                  
+       3 +                                                               
+       4 +# build output                                                 
+       5 +dist/                                                          
+       6 +dist-ssr/                                                      
+       7 +                                                               
+       8 +# logs                                                         
+       9 +*.log                                                          
+      10 +npm-debug.log*                                                 
+      11 +                                                               
+      12 +# editor / os                                                  
+      13 +.DS_Store                                                      
+      14 +.vscode/*                                                      
+      15 +!.vscode/extensions.json                                       
+      16 +.idea/                                                         
+      17 +                                                               
+      18 +# env                                                          
+      19 +.env                                                           
+      20 +.env.*                                                         
+      21 +!.env.example                                                  
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Install clean. Now the tests and a typecheck:
+
+  Ran 2 shell commands (ctrl+o to expand)
+
+⏺ Type conflict — vitest pulled its own nested copy of vite, so importing
+  defineConfig from vitest/config clashes with the plugins typed against root
+  vite. The fix is to use vite's own defineConfig and pull in the test types via
+  a reference directive.
+
+⏺ Update(vite.config.ts)
+  ⎿  Added 2 lines, removed 1 line
+      1 -import { defineConfig } from 'vitest/config';                   
+      1 +/// <reference types="vitest/config" />                         
+      2 +import { defineConfig } from 'vite';                            
+      3  import react from '@vitejs/plugin-react';
+      4  import tailwindcss from '@tailwindcss/vite';
+      5  
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ The augmentation isn't taking because of the duplicate vite. Cleanest fix:
+  split configs — vite.config.ts for the build (plugins), a separate
+  vitest.config.ts for tests (no plugins needed since the engine tests are pure
+  TS). This sidesteps the duplicate-vite type clash entirely.
+
+⏺ Write(vite.config.ts)  ⎿  Removed 4 lines
+       1 -/// <reference types="vitest/config" />                        
+       1  import { defineConfig } from 'vite';
+       2  import react from '@vitejs/plugin-react';
+       3  import tailwindcss from '@tailwindcss/vite';
+       4  
+       5  export default defineConfig({
+       6    plugins: [react(), tailwindcss()],
+       8 -  test: {                                                      
+       9 -    environment: 'node',                                       
+      10 -  },                                                           
+       7  });
+
+⏺ Write(vitest.config.ts)
+  ⎿  Wrote 11 lines to vitest.config.ts
+       1 import { defineConfig } from 'vitest/config';
+       2 
+       3 // The engine tests are pure TypeScript (no JSX/DOM), so this co
+       4 // loads no Vite plugins. When we add React component tests (sli
+         ce 2) we'll switch
+       5 // `environment` to 'jsdom' and pull in the react plugin.
+       6 export default defineConfig({
+       7   test: {
+       9     include: ['src/**/*.test.ts'],
+      10   },
+     … +3 lines (ctrl+o to expand)
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Build clean, 9/9 tests green. Quick lint check to make sure that command works
+  too:
+
+  Ran 1 shell command (ctrl+o to expand)
+
+⏺ Slice 1 is done and verified. Everything green:
+
+  npm install   ✓  222 packages
+  npm test      ✓  9/9 engine tests pass
+  npm run build ✓  tsc typecheck + vite production build
+  npm run lint  ✓  clean
+
+  What's on disk now (branch phase-1-typing-engine)
+
+  - Scaffold: package.json, tsconfig.json, vite.config.ts, vitest.config.ts,
+  eslint.config.js, index.html, .gitignore (fixed — it only had !ai-notes, no
+  node_modules/dist)
+  - CLAUDE.md — project guide for future sessions
+  - src/engine/ — the core, pure TypeScript, zero React/DOM deps:
+    - types.ts, engine.ts (strict-block state machine), metrics.ts (WPM /
+  accuracy / consistency / typo cost / per-key attribution), engine.test.ts (9
+  tests)
+  - src/content/snippets.ts — one Python, one Java, one C snippet to start
+  - src/App.tsx + main.tsx + index.css — minimal shell (placeholder; real UI is
+  slice 2)
+
+  One hiccup worth flagging
+
+  vitest installed its own nested copy of vite, which made the two vite type
+  definitions collide in a combined config. I split it: vite.config.ts (build,
+  with plugins) and vitest.config.ts (tests, no plugins — the engine tests are
+  pure TS). Standard fix, and it keeps the test setup clean for when we add
+  component tests in slice 2.
+
+  Minor note: npm install reported 5 advisories (typical JS-toolchain noise, all
+  in dev/build deps, nothing shipped to users). I left them alone rather than
+  audit fix --force, which would yank in breaking majors. We can do a careful
+  pass later.
+
+  What you can do right now
+
+  - npm test — watch the engine logic prove itself (typo blocks cursor,
+  backspace recovers, typo cost = wrong keys + backspaces, WPM math).
+  - npm run dev — opens the placeholder page (no typing UI yet — that's next).
+
+  ---
+  Nothing is committed yet. Two questions:
+  1. Want me to commit this slice (e.g. Phase 1 slice 1: typing engine + 
+  scaffold)?
+  2. Ready for me to build slice 2 — the TypingPanel UI + React hook so you can
+  actually type a snippet on screen and see live stats? I'll show you the
+  component approach before writing, same as before.
+
+✻ Baked for 3m 55s
