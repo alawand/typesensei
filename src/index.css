@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@keyframes caret-blink {
+  0%, 45% { opacity: 1; }
+  55%, 100% { opacity: 0; }
+}
