@@ -25,8 +25,9 @@ export function caretIndex(s: EngineState): number {
 
 /** Pure transition. Returns a NEW state; never mutates the input.
  *  `key` is a single produced character or 'Backspace'; `now` is a ms timestamp
- *  (e.g. event.timeStamp or performance.now()). */
-export function applyKey(prev: EngineState, key: string, now: number): EngineState {
+ *  (e.g. event.timeStamp or performance.now()). Set `auto` when the engine
+ *  generates the key (e.g. Tab filling indentation) so metrics can ignore it. */
+export function applyKey(prev: EngineState, key: string, now: number, auto = false): EngineState {
   if (prev.status === 'done') return prev;
 
   const startedAt = prev.startedAt ?? now;
@@ -45,7 +46,7 @@ export function applyKey(prev: EngineState, key: string, now: number): EngineSta
     } else if (s.cursor > 0) {
       s.cursor -= 1; // un-commit a correct char (allowed)
     }
-    s.keystrokes.push({ key, expected: null, correct: false, backspace: true, tMs, cursorAt: s.cursor });
+    s.keystrokes.push({ key, expected: null, correct: false, backspace: true, auto: false, tMs, cursorAt: s.cursor });
     return s;
   }
 
@@ -54,7 +55,7 @@ export function applyKey(prev: EngineState, key: string, now: number): EngineSta
   if (s.errorBuffer.length === 0 && key === expected) {
     // Clean forward progress.
     s.cursor += 1;
-    s.keystrokes.push({ key, expected, correct: true, backspace: false, tMs, cursorAt: s.cursor - 1 });
+    s.keystrokes.push({ key, expected, correct: true, backspace: false, auto, tMs, cursorAt: s.cursor - 1 });
     if (s.cursor >= s.target.length) {
       s.status = 'done';
       s.endedAt = now;
@@ -62,7 +63,7 @@ export function applyKey(prev: EngineState, key: string, now: number): EngineSta
   } else {
     // Wrong key, or already blocked: pile onto the error buffer.
     s.errorBuffer.push(key);
-    s.keystrokes.push({ key, expected, correct: false, backspace: false, tMs, cursorAt: s.cursor });
+    s.keystrokes.push({ key, expected, correct: false, backspace: false, auto, tMs, cursorAt: s.cursor });
   }
 
   return s;

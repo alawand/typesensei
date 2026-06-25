@@ -16,16 +16,27 @@ export function TypingPanel({ target, session }: { target: string; session: Typi
         session.reset();
         return;
       }
+      // Tab acts like an editor: fill exactly the indentation the snippet expects
+      // here (spaces or tabs), rather than inserting a literal tab character.
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        if (session.blocked) return; // don't pile whitespace onto an uncorrected typo
+        for (let i = session.state.cursor; i < target.length; i++) {
+          const c = target[i];
+          if (c !== ' ' && c !== '\t') break;
+          session.onKey(c, e.timeStamp, true);
+        }
+        return;
+      }
       let key: string | null = null;
       if (e.key === 'Backspace') key = 'Backspace';
       else if (e.key === 'Enter') key = '\n';
-      else if (e.key === 'Tab') key = '\t';
       else if (e.key.length === 1) key = e.key;
       if (key === null) return;
       e.preventDefault();
       session.onKey(key, e.timeStamp);
     },
-    [session],
+    [session, target],
   );
 
   // Position the smooth caret over the current character.

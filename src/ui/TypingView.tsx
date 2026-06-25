@@ -29,7 +29,7 @@ export function TypingView({ snippet }: { snippet: Snippet }) {
       </div>
 
       <div className="flex items-center justify-between text-sm text-neutral-500">
-        <span>Esc to restart · Backspace to fix typos</span>
+        <span>Tab to indent · Backspace to fix typos · Esc to restart</span>
         <button
           onClick={() => {
             session.reset();

@@ -21,8 +21,11 @@ export interface RunMetrics {
 
 export function computeMetrics(s: EngineState): RunMetrics {
   const ks = s.keystrokes;
-  const forward = ks.filter((k) => !k.backspace);
-  const backspaces = ks.length - forward.length;
+  // Manual keystrokes only: drop engine-generated (Tab) indentation so it never
+  // inflates speed or accuracy.
+  const manual = ks.filter((k) => !k.auto);
+  const forward = manual.filter((k) => !k.backspace);
+  const backspaces = manual.length - forward.length;
   const correct = forward.filter((k) => k.correct);
   const typos = forward.length - correct.length;
 
@@ -47,9 +50,9 @@ export function computeMetrics(s: EngineState): RunMetrics {
     wpm: minutes ? Math.round(correct.length / 5 / minutes) : 0,
     rawWpm: minutes ? Math.round(forward.length / 5 / minutes) : 0,
     accuracy: forward.length ? +((100 * correct.length) / forward.length).toFixed(1) : 100,
-    consistency: computeConsistency(ks.map((k) => k.tMs)),
+    consistency: computeConsistency(manual.map((k) => k.tMs)),
     correctChars: correct.length,
-    totalKeystrokes: ks.length,
+    totalKeystrokes: manual.length,
     typos,
     typoCost: typos + backspaces,
     perKey: [...map.values()].sort((a, b) => b.errors - a.errors),

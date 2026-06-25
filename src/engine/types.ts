@@ -11,6 +11,9 @@ export interface Keystroke {
   correct: boolean;
   /** True if this was a Backspace. */
   backspace: boolean;
+  /** True if the engine generated this key (e.g. Tab auto-filling indentation)
+   *  rather than the user pressing it. Excluded from speed/accuracy metrics. */
+  auto: boolean;
   /** ms since the run started (first keystroke = 0). */
   tMs: number;
   /** Cursor index at the moment the key landed. */

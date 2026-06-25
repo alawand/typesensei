@@ -101,6 +101,21 @@ describe('metrics', () => {
     expect(m.wpm).toBe(60);
   });
 
+  it('excludes auto-filled (Tab) indentation from speed, accuracy and per-key', () => {
+    // "  ab": two indent spaces auto-filled via Tab, then 'a' and 'b' typed
+    let s = createState('  ab');
+    s = applyKey(s, ' ', 1000, true); // auto
+    s = applyKey(s, ' ', 1000, true); // auto
+    s = applyKey(s, 'a', 1100); // manual
+    s = applyKey(s, 'b', 1200); // manual
+    const m = computeMetrics(s);
+    expect(s.status).toBe('done');
+    expect(m.correctChars).toBe(2); // only 'a' and 'b', not the indent
+    expect(m.totalKeystrokes).toBe(2);
+    expect(m.accuracy).toBe(100);
+    expect(m.perKey.find((k) => k.char === ' ')).toBeUndefined();
+  });
+
   it('attributes errors to the expected character', () => {
     let s = createState('a;b');
     s = applyKey(s, 'a', 1000);
