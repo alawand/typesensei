@@ -12,10 +12,10 @@ interface Props {
   skinId: string;
 }
 
-const OVERDRIVE_AT = 18; // combo needed for full overdrive
-const TRAIL_BASE = 8;
-const TRAIL_PER_COMBO = 1.4;
-const TRAIL_CAP = 44;
+const OVERDRIVE_AT = 14; // combo needed for full overdrive
+const TRAIL_BASE = 10;
+const TRAIL_PER_COMBO = 1.6;
+const TRAIL_CAP = 52;
 const MILESTONES = [10, 25, 50, 100, 200];
 
 /** Transparent canvas overlay aligned to the typing panel. Reads the engine's

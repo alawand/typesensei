@@ -32,7 +32,7 @@ export const orbSkin: CaretSkin = {
       const p = s.trail[i];
       const f = (i + 1) / n;
       const r = (0.8 + 2.4 * f) * (1 + 0.6 * s.overdrive);
-      ctx.globalAlpha = 0.04 + 0.3 * f;
+      ctx.globalAlpha = 0.05 + 0.4 * f;
       ctx.fillStyle = css(tint);
       ctx.beginPath();
       ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
