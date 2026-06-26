@@ -48,9 +48,40 @@ export const orbSkin: CaretSkin = {
       ctx.fill();
     }
 
+    // checkpoint rings (expanding, on line complete)
+    for (const r of s.rings) {
+      ctx.globalAlpha = (r.life / r.max) * 0.5;
+      ctx.strokeStyle = css(tint);
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
+    // milestone popups (floating ×N numbers)
+    for (const pu of s.popups) {
+      ctx.globalAlpha = pu.life / pu.max;
+      ctx.fillStyle = css(GOLD);
+      ctx.textAlign = 'center';
+      ctx.font = 'bold 12px ui-monospace, monospace';
+      ctx.fillText(pu.text, pu.x, pu.y);
+    }
+
     // core orb: tint shifts to red on a fresh typo
     const color = mix(tint, RED, s.errorFlash);
     const radius = s.h * 0.16 * (1 + 0.5 * s.overdrive);
+
+    // deeper overdrive bloom
+    if (s.overdrive > 0.01) {
+      const bloom = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, radius * 8);
+      bloom.addColorStop(0, css(tint, 0.15 * s.overdrive));
+      bloom.addColorStop(1, css(tint, 0));
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = bloom;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, radius * 8, 0, Math.PI * 2);
+      ctx.fill();
+    }
 
     const glow = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, radius * 4 + 2);
     glow.addColorStop(0, css(color, 0.6));

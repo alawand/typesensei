@@ -76,6 +76,9 @@ export function TypingPanel({
     parts.push(<Char key={i} ch={target[i]} status={status} />);
   }
 
+  let linesDone = 0;
+  for (let i = 0; i < state.cursor; i++) if (target[i] === '\n') linesDone++;
+
   return (
     <div
       ref={containerRef}
@@ -102,6 +105,8 @@ export function TypingPanel({
           box={box}
           combo={state.combo}
           typos={session.metrics.typos}
+          linesDone={linesDone}
+          done={state.status === 'done'}
           active={focused}
           skinId={caretSkin}
         />
