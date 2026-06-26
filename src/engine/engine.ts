@@ -6,6 +6,8 @@ export function createState(target: string): EngineState {
     cursor: 0,
     errorBuffer: [],
     keystrokes: [],
+    combo: 0,
+    maxCombo: 0,
     startedAt: null,
     endedAt: null,
     status: 'idle',
@@ -55,6 +57,10 @@ export function applyKey(prev: EngineState, key: string, now: number, auto = fal
   if (s.errorBuffer.length === 0 && key === expected) {
     // Clean forward progress.
     s.cursor += 1;
+    if (!auto) {
+      s.combo += 1;
+      s.maxCombo = Math.max(s.maxCombo, s.combo);
+    }
     s.keystrokes.push({ key, expected, correct: true, backspace: false, auto, tMs, cursorAt: s.cursor - 1 });
     if (s.cursor >= s.target.length) {
       s.status = 'done';
@@ -63,6 +69,7 @@ export function applyKey(prev: EngineState, key: string, now: number, auto = fal
   } else {
     // Wrong key, or already blocked: pile onto the error buffer.
     s.errorBuffer.push(key);
+    s.combo = 0;
     s.keystrokes.push({ key, expected, correct: false, backspace: false, auto, tMs, cursorAt: s.cursor });
   }
 

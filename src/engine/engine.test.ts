@@ -60,6 +60,29 @@ describe('strict-block engine', () => {
     expect(s0.keystrokes.length).toBe(0);
     expect(s1.cursor).toBe(1);
   });
+
+  it('tracks combo: increments on correct, resets on a typo', () => {
+    let s = createState('abc');
+    s = applyKey(s, 'a', 1000);
+    s = applyKey(s, 'b', 1010);
+    expect(s.combo).toBe(2);
+    expect(s.maxCombo).toBe(2);
+    s = applyKey(s, 'x', 1020); // typo
+    expect(s.combo).toBe(0);
+    expect(s.maxCombo).toBe(2); // max is retained
+    s = applyKey(s, 'Backspace', 1030);
+    s = applyKey(s, 'c', 1040);
+    expect(s.combo).toBe(1);
+  });
+
+  it('auto-filled keystrokes do not change combo', () => {
+    let s = createState('  a');
+    s = applyKey(s, ' ', 1000, true);
+    s = applyKey(s, ' ', 1000, true);
+    expect(s.combo).toBe(0);
+    s = applyKey(s, 'a', 1010);
+    expect(s.combo).toBe(1);
+  });
 });
 
 describe('metrics', () => {

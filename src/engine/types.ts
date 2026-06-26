@@ -30,6 +30,10 @@ export interface EngineState {
   errorBuffer: string[];
   /** Full ordered keystroke log. */
   keystrokes: Keystroke[];
+  /** Consecutive correct (non-auto) forward keystrokes; resets to 0 on a wrong key. */
+  combo: number;
+  /** Highest combo reached this run. */
+  maxCombo: number;
   /** ms timestamp of the first keystroke, or null before the run starts. */
   startedAt: number | null;
   /** ms timestamp when the last character was committed, or null until done. */
