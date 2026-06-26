@@ -14,6 +14,23 @@ export interface Particle {
   size: number;
 }
 
+export interface Ring {
+  x: number;
+  y: number;
+  r: number;
+  life: number;
+  max: number;
+}
+
+export interface Popup {
+  x: number;
+  y: number;
+  text: string;
+  life: number;
+  max: number;
+  vy: number;
+}
+
 /** Everything the overlay computes each frame. A skin only decides how to paint it. */
 export interface SparkState {
   x: number; // current eased center position
@@ -24,6 +41,8 @@ export interface SparkState {
   errorFlash: number; // 0..1, decays after a typo
   trail: TrailPoint[]; // oldest -> newest
   particles: Particle[];
+  rings: Ring[]; // checkpoint pulses (line complete)
+  popups: Popup[]; // floating milestone numbers
   t: number; // elapsed seconds
 }
 

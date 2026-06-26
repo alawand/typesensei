@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { SNIPPETS } from './content/snippets';
 import { getDailyProgress, type SaveResult } from './storage/db';
 import { loadSettings, saveSettings } from './storage/settings';
+import { SKINS } from './ui/carethero/skins';
 import { TypingView } from './ui/TypingView';
 
 export default function App() {
@@ -17,6 +18,14 @@ export default function App() {
   const toggleGame = () => {
     setSettings((prev) => {
       const next = { ...prev, gameOn: !prev.gameOn };
+      saveSettings(next);
+      return next;
+    });
+  };
+
+  const setCaretSkin = (id: string) => {
+    setSettings((prev) => {
+      const next = { ...prev, caretSkin: id };
       saveSettings(next);
       return next;
     });
@@ -46,13 +55,29 @@ export default function App() {
             </button>
           ))}
         </div>
-        <button
-          onClick={toggleGame}
-          className="rounded-md px-3 py-1 text-xs text-neutral-400 hover:text-neutral-200"
-          title="Toggle the caret Flow effect"
-        >
-          {settings.gameOn ? '✦ Flow: on' : 'Flow: off'}
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={toggleGame}
+            className="rounded-md px-3 py-1 text-xs text-neutral-400 hover:text-neutral-200"
+            title="Toggle the caret Flow effect"
+          >
+            {settings.gameOn ? '✦ Flow: on' : 'Flow: off'}
+          </button>
+          {settings.gameOn &&
+            Object.values(SKINS).map((skin) => (
+              <button
+                key={skin.id}
+                onClick={() => setCaretSkin(skin.id)}
+                className={`rounded-md px-2 py-1 text-xs ${
+                  settings.caretSkin === skin.id
+                    ? 'bg-neutral-700 text-neutral-100'
+                    : 'text-neutral-500 hover:text-neutral-300'
+                }`}
+              >
+                {skin.name}
+              </button>
+            ))}
+        </div>
       </header>
 
       <TypingView
