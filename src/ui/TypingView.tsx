@@ -6,7 +6,17 @@ import { TypingPanel } from './TypingPanel';
 import { LiveStats } from './LiveStats';
 import { Results } from './Results';
 
-export function TypingView({ snippet, onSaved }: { snippet: Snippet; onSaved?: (r: SaveResult) => void }) {
+export function TypingView({
+  snippet,
+  onSaved,
+  gameOn,
+  caretSkin,
+}: {
+  snippet: Snippet;
+  onSaved?: (r: SaveResult) => void;
+  gameOn: boolean;
+  caretSkin: string;
+}) {
   const session = useTypingSession(snippet.source);
   const { state, metrics } = session;
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -44,7 +54,7 @@ export function TypingView({ snippet, onSaved }: { snippet: Snippet; onSaved?: (
       </div>
 
       <div ref={wrapRef}>
-        <TypingPanel target={snippet.source} session={session} />
+        <TypingPanel target={snippet.source} session={session} gameOn={gameOn} caretSkin={caretSkin} />
       </div>
 
       <div className="flex items-center justify-between text-sm text-neutral-500">

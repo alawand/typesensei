@@ -1,8 +1,19 @@
 import { useCallback, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { Char, type CharStatus } from './Char';
+import { CaretHero } from './carethero/CaretHero';
 import type { TypingSession } from './useTypingSession';
 
-export function TypingPanel({ target, session }: { target: string; session: TypingSession }) {
+export function TypingPanel({
+  target,
+  session,
+  gameOn,
+  caretSkin,
+}: {
+  target: string;
+  session: TypingSession;
+  gameOn: boolean;
+  caretSkin: string;
+}) {
   const { state, caret } = session;
   const containerRef = useRef<HTMLDivElement>(null);
   const [box, setBox] = useState({ x: 0, y: 0, h: 0 });
@@ -60,7 +71,8 @@ export function TypingPanel({ target, session }: { target: string; session: Typi
         parts.push(<Char key={`x${j}`} ch={ch === '\n' ? '↵' : ch} status="extra" />),
       );
     }
-    const status: CharStatus = i < state.cursor ? 'correct' : 'pending';
+    const status: CharStatus =
+      i < state.cursor ? 'correct' : i === state.cursor && !session.blocked ? 'current' : 'pending';
     parts.push(<Char key={i} ch={target[i]} status={status} />);
   }
 
@@ -71,7 +83,7 @@ export function TypingPanel({ target, session }: { target: string; session: Typi
       onKeyDown={handleKeyDown}
       onFocus={() => setFocused(true)}
       onBlur={() => setFocused(false)}
-      className="relative whitespace-pre font-mono text-lg leading-7 outline-none
+      className="relative isolate whitespace-pre font-mono text-lg leading-7 outline-none
                  p-6 rounded-xl bg-neutral-900 cursor-text select-none"
     >
       <span
@@ -85,6 +97,15 @@ export function TypingPanel({ target, session }: { target: string; session: Typi
         }}
       />
       {parts}
+      {gameOn && (
+        <CaretHero
+          box={box}
+          combo={state.combo}
+          typos={session.metrics.typos}
+          active={focused}
+          skinId={caretSkin}
+        />
+      )}
       {!focused && (
         <div className="absolute inset-0 grid place-items-center rounded-xl bg-neutral-900/60 text-sm text-neutral-400">
           click or press a key to focus

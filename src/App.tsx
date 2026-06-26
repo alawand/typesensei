@@ -1,16 +1,26 @@
 import { useEffect, useState } from 'react';
 import { SNIPPETS } from './content/snippets';
 import { getDailyProgress, type SaveResult } from './storage/db';
+import { loadSettings, saveSettings } from './storage/settings';
 import { TypingView } from './ui/TypingView';
 
 export default function App() {
   const [snippetId, setSnippetId] = useState(SNIPPETS[0].id);
   const [progress, setProgress] = useState<SaveResult | null>(null);
+  const [settings, setSettings] = useState(loadSettings);
   const snippet = SNIPPETS.find((s) => s.id === snippetId) ?? SNIPPETS[0];
 
   useEffect(() => {
     getDailyProgress().then(setProgress);
   }, []);
+
+  const toggleGame = () => {
+    setSettings((prev) => {
+      const next = { ...prev, gameOn: !prev.gameOn };
+      saveSettings(next);
+      return next;
+    });
+  };
 
   return (
     <main className="flex min-h-screen flex-col items-center gap-8 bg-neutral-950 px-4 py-12 text-neutral-100">
@@ -36,9 +46,22 @@ export default function App() {
             </button>
           ))}
         </div>
+        <button
+          onClick={toggleGame}
+          className="rounded-md px-3 py-1 text-xs text-neutral-400 hover:text-neutral-200"
+          title="Toggle the caret Flow effect"
+        >
+          {settings.gameOn ? '✦ Flow: on' : 'Flow: off'}
+        </button>
       </header>
 
-      <TypingView key={snippet.id} snippet={snippet} onSaved={setProgress} />
+      <TypingView
+        key={snippet.id}
+        snippet={snippet}
+        onSaved={setProgress}
+        gameOn={settings.gameOn}
+        caretSkin={settings.caretSkin}
+      />
     </main>
   );
 }
