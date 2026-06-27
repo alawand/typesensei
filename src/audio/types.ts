@@ -10,4 +10,5 @@ export interface SoundPack {
   name: string;
   correct(c: SoundContext, combo: number): void; // pitch typically rises with combo
   error(c: SoundContext): void;
+  accent?(c: SoundContext): void; // optional flourish on line complete
 }

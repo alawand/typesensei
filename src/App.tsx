@@ -5,7 +5,7 @@ import type { RunMetrics } from './engine/metrics';
 import { evaluateRun, unlockGauntlet, type AchievementDef } from './storage/achievements';
 import { getDailyProgress, getTopProblemKeys, type SaveResult } from './storage/db';
 import { loadSettings, saveSettings } from './storage/settings';
-import { previewPack } from './audio/packs';
+import { PACKS, previewPack } from './audio/packs';
 import { SKINS } from './ui/carethero/skins';
 import { GauntletBar } from './ui/GauntletBar';
 import { MasteryMap } from './ui/MasteryMap';
@@ -122,6 +122,13 @@ export default function App() {
     if (next.soundOn) previewPack(next.soundPack); // unlock + confirmation blip on the click
   };
 
+  const setSoundPack = (id: string) => {
+    const next = { ...settings, soundPack: id };
+    setSettings(next);
+    saveSettings(next);
+    if (settings.soundOn) previewPack(id); // hear the pack you picked
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center gap-8 bg-neutral-950 px-4 py-12 text-neutral-100">
       <header className="flex flex-col items-center gap-3">
@@ -165,6 +172,20 @@ export default function App() {
           >
             {settings.soundOn ? '♪ Sound: on' : 'Sound: off'}
           </button>
+          {settings.soundOn &&
+            Object.values(PACKS).map((p) => (
+              <button
+                key={p.id}
+                onClick={() => setSoundPack(p.id)}
+                className={`rounded-md px-2 py-1 text-xs ${
+                  settings.soundPack === p.id
+                    ? 'bg-neutral-700 text-neutral-100'
+                    : 'text-neutral-500 hover:text-neutral-300'
+                }`}
+              >
+                {p.name}
+              </button>
+            ))}
           {settings.gameOn &&
             Object.values(SKINS).map((skin) => (
               <button

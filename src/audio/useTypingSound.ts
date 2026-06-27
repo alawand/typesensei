@@ -26,8 +26,12 @@ export function useTypingSound(state: EngineState, enabled: boolean, packId: str
       const k = ks[i];
       if (k.auto || k.backspace) continue; // Tab-indent and corrections stay silent
       const sc = { ctx, out, now: ctx.currentTime };
-      if (k.correct) pack.correct(sc, state.combo);
-      else pack.error(sc);
+      if (k.correct) {
+        pack.correct(sc, state.combo);
+        if (k.key === '\n') pack.accent?.(sc); // line-complete flourish
+      } else {
+        pack.error(sc);
+      }
     }
     processed.current = ks.length;
   }, [state.keystrokes, state.combo, enabled, packId]);
