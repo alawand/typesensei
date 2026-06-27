@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { Snippet } from '../content/snippets';
+import type { RunMetrics } from '../engine/metrics';
 import { saveRun, type SaveResult } from '../storage/db';
 import { useTypingSession } from './useTypingSession';
 import { TypingPanel } from './TypingPanel';
@@ -8,12 +9,12 @@ import { Results } from './Results';
 
 export function TypingView({
   snippet,
-  onSaved,
+  onComplete,
   gameOn,
   caretSkin,
 }: {
   snippet: Snippet;
-  onSaved?: (r: SaveResult) => void;
+  onComplete?: (m: RunMetrics, save: SaveResult) => void;
   gameOn: boolean;
   caretSkin: string;
 }) {
@@ -39,9 +40,9 @@ export function TypingView({
     savedRef.current = true;
     saveRun(snippet, metrics).then((r) => {
       setSaveResult(r);
-      onSaved?.(r);
+      onComplete?.(metrics, r);
     });
-  }, [state.status, snippet, metrics, onSaved]);
+  }, [state.status, snippet, metrics, onComplete]);
 
   return (
     <div className="flex w-full max-w-3xl flex-col gap-6">

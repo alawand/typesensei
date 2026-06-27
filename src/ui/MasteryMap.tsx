@@ -65,14 +65,18 @@ export function MasteryMap() {
             <div className="flex flex-wrap gap-1.5">
               {g.chars.split('').map((ch) => {
                 const k = stats.get(ch);
+                const m = classify(k);
                 const pct = k && k.attempts ? Math.round((k.errors / k.attempts) * 100) : 0;
                 return (
                   <span
                     key={ch}
                     title={k ? `${ch}  ${k.errors}/${k.attempts} errors (${pct}%)` : `${ch}  no data yet`}
-                    className={`flex h-7 w-7 items-center justify-center rounded font-mono text-sm ${CELL[classify(k)]}`}
+                    className={`relative flex h-7 w-7 items-center justify-center rounded font-mono text-sm ${CELL[m]}`}
                   >
                     {ch}
+                    {m === 'mastered' && (
+                      <span className="absolute -right-1 -top-1.5 text-[9px] text-emerald-300">★</span>
+                    )}
                   </span>
                 );
               })}

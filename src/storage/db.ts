@@ -29,10 +29,16 @@ export interface DayStat {
   msTyped: number;
 }
 
+export interface Achievement {
+  id: string; // primary key
+  unlockedAt: number;
+}
+
 class TypesenseiDB extends Dexie {
   runs!: Table<RunRecord, number>;
   keyStats!: Table<KeyStat, string>;
   days!: Table<DayStat, string>;
+  achievements!: Table<Achievement, string>;
 
   constructor() {
     super('typesensei');
@@ -40,6 +46,9 @@ class TypesenseiDB extends Dexie {
       runs: '++id, startedAt, snippetId, language',
       keyStats: 'char',
       days: 'date',
+    });
+    this.version(2).stores({
+      achievements: 'id',
     });
   }
 }
@@ -134,6 +143,14 @@ export function getDailyProgress(): Promise<SaveResult> {
 /** Every accumulated per-key stat (for the mastery map). */
 export function getAllKeyStats(): Promise<KeyStat[]> {
   return db.keyStats.toArray();
+}
+
+export async function getUnlockedAchievements(): Promise<Set<string>> {
+  return new Set((await db.achievements.toArray()).map((a) => a.id));
+}
+
+export async function unlockAchievement(id: string): Promise<void> {
+  await db.achievements.put({ id, unlockedAt: Date.now() });
 }
 
 /** All-time weakest keys by error rate (then absolute errors), errors only. */
