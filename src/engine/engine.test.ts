@@ -139,6 +139,12 @@ describe('metrics', () => {
     expect(m.perKey.find((k) => k.char === ' ')).toBeUndefined();
   });
 
+  it('reports the run max combo', () => {
+    let s = createState('abcd');
+    for (const c of 'abcd') s = applyKey(s, c, 1000);
+    expect(computeMetrics(s).maxCombo).toBe(4);
+  });
+
   it('attributes errors to the expected character', () => {
     let s = createState('a;b');
     s = applyKey(s, 'a', 1000);

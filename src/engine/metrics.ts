@@ -12,6 +12,7 @@ export interface RunMetrics {
   rawWpm: number; // all forward chars / 5 / minutes
   accuracy: number; // % correct forward keys of all forward keys
   consistency: number; // 0–100, steadiness of keystroke rhythm (the "flow" number)
+  maxCombo: number; // longest clean streak this run
   correctChars: number;
   totalKeystrokes: number;
   typos: number; // wrong forward keys
@@ -51,6 +52,7 @@ export function computeMetrics(s: EngineState): RunMetrics {
     rawWpm: minutes ? Math.round(forward.length / 5 / minutes) : 0,
     accuracy: forward.length ? +((100 * correct.length) / forward.length).toFixed(1) : 100,
     consistency: computeConsistency(manual.map((k) => k.tMs)),
+    maxCombo: s.maxCombo,
     correctChars: correct.length,
     totalKeystrokes: manual.length,
     typos,
