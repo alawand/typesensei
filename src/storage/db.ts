@@ -131,6 +131,11 @@ export function getDailyProgress(): Promise<SaveResult> {
   return progressForToday();
 }
 
+/** Every accumulated per-key stat (for the mastery map). */
+export function getAllKeyStats(): Promise<KeyStat[]> {
+  return db.keyStats.toArray();
+}
+
 /** All-time weakest keys by error rate (then absolute errors), errors only. */
 export async function getTopProblemKeys(limit = 8): Promise<KeyStat[]> {
   const all = await db.keyStats.toArray();

@@ -3,12 +3,14 @@ import { SNIPPETS } from './content/snippets';
 import { getDailyProgress, type SaveResult } from './storage/db';
 import { loadSettings, saveSettings } from './storage/settings';
 import { SKINS } from './ui/carethero/skins';
+import { MasteryMap } from './ui/MasteryMap';
 import { TypingView } from './ui/TypingView';
 
 export default function App() {
   const [snippetId, setSnippetId] = useState(SNIPPETS[0].id);
   const [progress, setProgress] = useState<SaveResult | null>(null);
   const [settings, setSettings] = useState(loadSettings);
+  const [showMastery, setShowMastery] = useState(false);
   const snippet = SNIPPETS.find((s) => s.id === snippetId) ?? SNIPPETS[0];
 
   useEffect(() => {
@@ -78,6 +80,12 @@ export default function App() {
               </button>
             ))}
         </div>
+        <button
+          onClick={() => setShowMastery((v) => !v)}
+          className="rounded-md px-3 py-1 text-xs text-neutral-400 hover:text-neutral-200"
+        >
+          {showMastery ? 'Hide mastery' : 'Symbol mastery'}
+        </button>
       </header>
 
       <TypingView
@@ -87,6 +95,8 @@ export default function App() {
         gameOn={settings.gameOn}
         caretSkin={settings.caretSkin}
       />
+
+      {showMastery && <MasteryMap key={progress?.todayCorrectChars ?? 0} />}
     </main>
   );
 }
