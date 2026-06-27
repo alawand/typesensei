@@ -5,6 +5,7 @@ import type { RunMetrics } from './engine/metrics';
 import { evaluateRun, unlockGauntlet, type AchievementDef } from './storage/achievements';
 import { getDailyProgress, getTopProblemKeys, type SaveResult } from './storage/db';
 import { loadSettings, saveSettings } from './storage/settings';
+import { previewPack } from './audio/packs';
 import { SKINS } from './ui/carethero/skins';
 import { GauntletBar } from './ui/GauntletBar';
 import { MasteryMap } from './ui/MasteryMap';
@@ -114,6 +115,13 @@ export default function App() {
     });
   };
 
+  const toggleSound = () => {
+    const next = { ...settings, soundOn: !settings.soundOn };
+    setSettings(next);
+    saveSettings(next);
+    if (next.soundOn) previewPack(next.soundPack); // unlock + confirmation blip on the click
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center gap-8 bg-neutral-950 px-4 py-12 text-neutral-100">
       <header className="flex flex-col items-center gap-3">
@@ -149,6 +157,13 @@ export default function App() {
             title="Toggle the caret Flow effect"
           >
             {settings.gameOn ? '✦ Flow: on' : 'Flow: off'}
+          </button>
+          <button
+            onClick={toggleSound}
+            className="rounded-md px-3 py-1 text-xs text-neutral-400 hover:text-neutral-200"
+            title="Toggle typing sound"
+          >
+            {settings.soundOn ? '♪ Sound: on' : 'Sound: off'}
           </button>
           {settings.gameOn &&
             Object.values(SKINS).map((skin) => (
@@ -202,6 +217,8 @@ export default function App() {
         onComplete={handleComplete}
         gameOn={settings.gameOn}
         caretSkin={settings.caretSkin}
+        soundOn={settings.soundOn}
+        soundPack={settings.soundPack}
       />
 
       {showMastery && <MasteryMap key={progress?.todayCorrectChars ?? 0} />}
