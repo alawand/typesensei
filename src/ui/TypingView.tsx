@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { Snippet } from '../content/snippets';
 import type { RunMetrics } from '../engine/metrics';
 import { saveRun, type SaveResult } from '../storage/db';
+import { useTypingSound } from '../audio/useTypingSound';
 import { useTypingSession } from './useTypingSession';
 import { TypingPanel } from './TypingPanel';
 import { LiveStats } from './LiveStats';
@@ -12,14 +13,19 @@ export function TypingView({
   onComplete,
   gameOn,
   caretSkin,
+  soundOn,
+  soundPack,
 }: {
   snippet: Snippet;
   onComplete?: (m: RunMetrics, save: SaveResult) => void;
   gameOn: boolean;
   caretSkin: string;
+  soundOn: boolean;
+  soundPack: string;
 }) {
   const session = useTypingSession(snippet.source);
   const { state, metrics } = session;
+  useTypingSound(state, soundOn, soundPack);
   const wrapRef = useRef<HTMLDivElement>(null);
   const [saveResult, setSaveResult] = useState<SaveResult | null>(null);
   const savedRef = useRef(false);
