@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { SNIPPETS } from './content/snippets';
-import { getDailyProgress, type SaveResult } from './storage/db';
+import { SNIPPETS, type Snippet } from './content/snippets';
+import { buildDrill } from './content/drills';
+import { getDailyProgress, getTopProblemKeys, type SaveResult } from './storage/db';
 import { loadSettings, saveSettings } from './storage/settings';
 import { SKINS } from './ui/carethero/skins';
 import { MasteryMap } from './ui/MasteryMap';
@@ -11,11 +12,18 @@ export default function App() {
   const [progress, setProgress] = useState<SaveResult | null>(null);
   const [settings, setSettings] = useState(loadSettings);
   const [showMastery, setShowMastery] = useState(false);
+  const [drill, setDrill] = useState<Snippet | null>(null);
   const snippet = SNIPPETS.find((s) => s.id === snippetId) ?? SNIPPETS[0];
+  const active = drill ?? snippet;
 
   useEffect(() => {
     getDailyProgress().then(setProgress);
   }, []);
+
+  const startDrill = async () => {
+    const weak = await getTopProblemKeys(6);
+    setDrill(buildDrill(weak.map((k) => k.char), snippet.language));
+  };
 
   const toggleGame = () => {
     setSettings((prev) => {
@@ -46,7 +54,10 @@ export default function App() {
           {SNIPPETS.map((s) => (
             <button
               key={s.id}
-              onClick={() => setSnippetId(s.id)}
+              onClick={() => {
+                setSnippetId(s.id);
+                setDrill(null);
+              }}
               className={`rounded-md px-3 py-1.5 text-sm ${
                 s.id === snippetId
                   ? 'bg-emerald-500 text-neutral-950'
@@ -81,6 +92,12 @@ export default function App() {
             ))}
         </div>
         <button
+          onClick={startDrill}
+          className="rounded-md bg-emerald-600/20 px-3 py-1 text-xs text-emerald-300 hover:bg-emerald-600/30"
+        >
+          Drill weak spots
+        </button>
+        <button
           onClick={() => setShowMastery((v) => !v)}
           className="rounded-md px-3 py-1 text-xs text-neutral-400 hover:text-neutral-200"
         >
@@ -89,8 +106,8 @@ export default function App() {
       </header>
 
       <TypingView
-        key={snippet.id}
-        snippet={snippet}
+        key={active.id}
+        snippet={active}
         onSaved={setProgress}
         gameOn={settings.gameOn}
         caretSkin={settings.caretSkin}
