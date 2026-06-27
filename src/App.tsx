@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { SNIPPETS, type Snippet } from './content/snippets';
+import { SNIPPETS, type Language, type Snippet } from './content/snippets';
 import { buildDrill } from './content/drills';
+import { buildCustomSnippet } from './content/custom';
 import type { RunMetrics } from './engine/metrics';
 import { evaluateRun, unlockGauntlet, type AchievementDef } from './storage/achievements';
 import { getDailyProgress, getTopProblemKeys, type SaveResult } from './storage/db';
@@ -9,6 +10,7 @@ import { PACKS, previewPack } from './audio/packs';
 import { SKINS } from './ui/carethero/skins';
 import { GauntletBar } from './ui/GauntletBar';
 import { MasteryMap } from './ui/MasteryMap';
+import { PasteModal } from './ui/PasteModal';
 import { TypingView } from './ui/TypingView';
 
 interface Gauntlet {
@@ -24,6 +26,7 @@ export default function App() {
   const [progress, setProgress] = useState<SaveResult | null>(null);
   const [settings, setSettings] = useState(loadSettings);
   const [showMastery, setShowMastery] = useState(false);
+  const [paste, setPaste] = useState(false);
   const [drill, setDrill] = useState<Snippet | null>(null);
   const [gauntlet, setGauntlet] = useState<Gauntlet | null>(null);
   const [toast, setToast] = useState<AchievementDef[]>([]);
@@ -58,6 +61,15 @@ export default function App() {
     setGauntlet(null);
     const weak = await getTopProblemKeys(6);
     setDrill(buildDrill(weak.map((k) => k.char), snippet.language));
+  };
+
+  const startCustom = (text: string, lang: Language) => {
+    const s = buildCustomSnippet(text, lang);
+    if (s) {
+      setGauntlet(null);
+      setDrill(s);
+    }
+    setPaste(false);
   };
 
   const startGauntlet = async () => {
@@ -214,6 +226,12 @@ export default function App() {
           Symbol Gauntlet
         </button>
         <button
+          onClick={() => setPaste(true)}
+          className="rounded-md bg-neutral-700/40 px-3 py-1 text-xs text-neutral-200 hover:bg-neutral-700"
+        >
+          Paste code
+        </button>
+        <button
           onClick={() => setShowMastery((v) => !v)}
           className="rounded-md px-3 py-1 text-xs text-neutral-400 hover:text-neutral-200"
         >
@@ -257,6 +275,8 @@ export default function App() {
           ))}
         </div>
       )}
+
+      {paste && <PasteModal onStart={startCustom} onClose={() => setPaste(false)} />}
     </main>
   );
 }
